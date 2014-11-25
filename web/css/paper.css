@@ -1,0 +1,41 @@
+@page{
+    margin-top: 90px;
+}
+
+@media print{
+    body {
+        background: #fff;	
+        width: auto;
+        height: auto;
+        border: 0;
+        margin: 0 0%;
+        padding: 0;
+        float: none !important;
+        overflow: visible;
+    }
+
+    html {
+            background: #fff;
+            width: auto;
+            height: auto;
+            overflow: visible;
+    }
+
+    #revealMainContainer,
+    #topPanel,#newSlideLeftContainer,#newSlideRightContainer,
+    .nestedarrow,
+    .controls,
+    .reveal .progress,
+    .reveal.overview,
+    .fork-reveal,
+    .share-reveal,
+    .state-background {
+            display: none !important;
+    }
+
+    .printIMG{   
+            float: left !important;
+            margin: 30px 15px;
+            opacity: 1 !important;                            
+    }
+}
