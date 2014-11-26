@@ -1,30 +1,31 @@
-               $(document).ready(function() {
-                
-                
-                   /******************************************************************************
-                    ******************************* INIT FUNCTIONS *******************************
-                    ******************************************************************************/
-                   $(".present > .sectionContent").focus();
 
-                   window.onbeforeunload = function() {
-                       if ($("#sectionContainer").html() !== lastSavedContent) {
-                           return 'Kaydedilmemiş bilgileriniz silinecektir!';
-                       }
-                   };
 
-                   $(window).load(function() {
-                       $("#preLoader").fadeOut();
-                   });
+            $(document).ready(function() {
+                                
+                /******************************************************************************
+                 ******************************* INIT FUNCTIONS *******************************
+                 ******************************************************************************/
+                $(".present > .sectionContent").focus();
 
-                   if (navigator.appVersion.indexOf("Mac") === -1) {
-                       $(".helpMac").remove();
-                   } else {
-                       $(".helpWin").remove();
-                   }
+                window.onbeforeunload = function() {
+                    if ($("#sectionContainer").html() !== lastSavedContent) {
+                        return 'Kaydedilmemiş bilgileriniz silinecektir!';
+                    }
+                };
 
-                   stack.push(new Stack($("#sectionContainer").clone(), $('.present').attr("id")));
-                   
-                   google.maps.event.addDomListener(window, 'load', initializeMaps);
+                $(window).load(function() {
+                    $("#preLoader").fadeOut();
+                });
+
+                if (navigator.appVersion.indexOf("Mac") === -1) {
+                    $(".helpMac").remove();
+                } else {
+                    $(".helpWin").remove();
+                }
+
+                stack.push(new Stack($("#sectionContainer").clone(), $('.present').attr("id")));
+
+                google.maps.event.addDomListener(window, 'load', initializeMaps);
 
 
 

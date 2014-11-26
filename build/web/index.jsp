@@ -9,9 +9,9 @@
             <meta name="apple-mobile-web-app-capable" content="yes" />
             <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+            
             <title>EBA Sunum</title>
-            <link href="css/eba-sunum-theme/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-            <link rel="stylesheet" href="css/reveal.css"/>
+            <link href="css/eba-sunum-theme/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />            
             <link rel="stylesheet" href="css/theme/default.css" id="theme"/>
             <link rel="stylesheet" type="text/css" href="css/style.css"/>
             <link href="css/eba-sunum-theme/jquery-ui-1.10.3.custom.css" rel="stylesheet"/>
@@ -22,6 +22,8 @@
             <link rel="stylesheet" href="css/test.css" type="text/css">
             <noscript><style>div{display:none;} .esNoJS {display:block;}</style></noscript>
             <!--[if lt IE 9]><script src="lib/js/html5shiv.js"></script><![endif]-->
+            
+            <!--<link rel="stylesheet" href="css/reveal.css"/>-->
             
         <style>
             .edittablePage{
@@ -654,7 +656,7 @@
 
                     <div id="zbookPageContainer" class="edittablePagex" style="float:right; height: 500px; width: 80%; background: #EEE">
 
-                        <section class="present">                            
+                        <section class="present" style="height: 100%; width: 100%; background: #EEE">                            
                             
                         </section>
 
@@ -721,9 +723,11 @@
         <script src="js/es-print.js" type="text/javascript"></script>
         <script src="js/test.js" type="text/javascript"></script> 
         <script src="lib/js/head.min.js" type="text/javascript"></script>	
-        <script src="js/reveal.js" type="text/javascript"></script> 
+        
         <script src="js/html2canvas.js" type="text/javascript"></script>        
         <script src="js/test.js" type="text/javascript"></script>        
+        
+<!--        <script src="js/reveal.js" type="text/javascript"></script> -->
         
         <script type="text/javascript">
             
@@ -738,8 +742,8 @@
                 ******************************************************************************/
                 // Bu section amacı tıklanılan element'e div eklenerek istediğimiz hale getirmektir.
                 $( "body" ).click(function( event ) {
-                    console.log("Clicked element " + event.target.nodeName);                    
-                    console.log(event.target);
+//                    console.log("Clicked element " + event.target.nodeName);                    
+//                    console.log(event.target);
                     
                     if(event.target.nodeName=='P'){
                         console.log("sss")
@@ -764,9 +768,9 @@
                         }                                                
                         
                         // drag edilen element degerleri alinir
-                        console.log(ui.draggable.get(0));
-                        console.log(ui.draggable.attr("id"));
-                        console.log(this);
+//                        console.log(ui.draggable.get(0));
+//                        console.log(ui.draggable.attr("id"));
+//                        console.log(this);
                     }
                 });
             
@@ -774,25 +778,18 @@
                 /******************************************************************************
                 *********************************** IFRAME ************************************
                 ******************************************************************************/                    
-                   
-               
                 $('iframe').load(function(){
                     
-                    console.log(this);
+//                    console.log("Load iframe element");
+//                    console.log(this);
                     
-                    $(this).contents().find('html').on('click', function(event) {                                                
-                        console.log("deneme deneme");
-                        $(this).find('body').children().addClass('ss');
-                        console.log(event.target)
+                    $(this).contents().find('html').on('click', function(event) {  
+                        console.log("Ifame element clicked")
                         
-                        console.log(event.target.nodeName)
-                        if(event.target.nodeName=='p'){
-                            console.log("sss")
-                            $(event.target).attr('contenteditable' , 'true');
-                        }
-                                                                        
                     });
                 });
+                   
+                
                                     
             
 
@@ -800,30 +797,30 @@
                 $("div").remove();
                 document.write("<font id=\"browserSupport\">LÃ¼tfen Internet Explorer 10 ve Ã¼zeri ya da diÄer tarayÄ±cÄ±lar ile tekrar deneyiniz!</font>");
             }else{
-            
-<%
-            String remoteOpen = (String) session.getAttribute("remoteOpen");
-            if (remoteOpen != null && remoteOpen.equals("true")) {
-%>  
-                var responseFromServer = <%=(String) session.getAttribute("presentationContent")%>;
-                settings = responseFromServer.settings;
-                $("#sectionContainer").html(responseFromServer.content);
-                $("#sectionContainer").css("font-family", settings.fontType);
-                
-                //Restoring video iframes
-                $(".videoContainer").each(function() {
-                    var video = document.createElement("IFRAME");
-                    video.src = $(this).find("input[type=hidden]").val();
-                    video.className = "videoContainerInner";
-                    $(this).append(video);
-                });
+//            
+//<%
+//            String remoteOpen = (String) session.getAttribute("remoteOpen");
+//            if (remoteOpen != null && remoteOpen.equals("true")) {
+%>//  
+//                var responseFromServer = <%=(String) session.getAttribute("presentationContent")%>;
+//                settings = responseFromServer.settings;
+//                $("#sectionContainer").html(responseFromServer.content);
+//                $("#sectionContainer").css("font-family", settings.fontType);
+//                
+//                //Restoring video iframes
+//                $(".videoContainer").each(function() {
+//                    var video = document.createElement("IFRAME");
+//                    video.src = $(this).find("input[type=hidden]").val();
+//                    video.className = "videoContainerInner";
+//                    $(this).append(video);
+//                });
+//
+//<%
+//            }
 
-<%
-        }
-
-            request.getSession().removeAttribute("currentPresentationId");
-            request.getSession().removeAttribute("remoteOpen");
-            request.getSession().removeAttribute("presentationContent");
+//            request.getSession().removeAttribute("currentPresentationId");
+//            request.getSession().removeAttribute("remoteOpen");
+//            request.getSession().removeAttribute("presentationContent");
 %>
            
             

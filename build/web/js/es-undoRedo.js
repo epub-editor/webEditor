@@ -7,6 +7,8 @@
 
                function undo(event) {
 
+                    console.log("Undo action called");
+
                    if (stackPosition === 0 && stack.length > 1) {
                        alert("Geri alınamaz");
                    }
@@ -26,6 +28,8 @@
                }
 
                function redo(event) {
+                   
+                   console.log("Redo action called");
 
                    if (stackPosition === stack.length - 1) {
                        alert("İleri alınamaz");
@@ -44,7 +48,8 @@
                 * push yapılırken push edilecek DOM element'i clone edilmesi gerekir 
                 * aksi halde stack'e atılan tüm element'ler aynı adresi gösterirler. 
                 */
-               function pushToStack(selection) {
+               function pushToStack(selection) {                                      
+                   
                    switch (selection) {
 
                        case 'reset':
@@ -54,6 +59,9 @@
                            break;
 
                        default:
+                           
+                           console.log("pushToStack --> default case");                           
+                           
                            if (stackPosition === stack.length - 1) {
                                if (stack.length === stackSize) {
                                    stack.splice(0, 1);
@@ -62,7 +70,7 @@
 
                                var stackObj = new Stack($("#sectionContainer").clone(), $('.present').attr("id"));
                                stack.push(stackObj);
-                               stackPosition++;
+                               stackPosition++;                                                              
 
                            } else {//if stackPosition is not at the end
                                while (stackPosition < stack.length - 1) {
@@ -78,14 +86,18 @@
                 *  image'lerin kaybolan resize & draggable eventleri tekrar aktif eder
                 */
                function resizeAndDragHandler(imgDiv, newCreated, handleElem) {
-
+                    
                    //image yeni upload edildi ise
                    if (newCreated) {
+                       
+                       console.log("resizeAndDragHandler --> new object called");
+                       
                        if (!handleElem) {
                            $(imgDiv).draggable({
                                opacity: 0.5,
                                containment: $(".present").get(0),
                                stop: function() {
+                                   console.log("resizeAndDragHandler --> new object ! .handle");
                                    pushToStack();
                                }
                            });
@@ -96,19 +108,28 @@
                                handle: handleElem,
                                containment: $(".present").get(0),
                                stop: function() {
+                                   console.log("resizeAndDragHandler --> new object .handle");
                                    pushToStack();
                                }
                            });
-                       }
+                       }            
+                       
                        $(imgDiv).resizable({
                            containment: $(".present").get(0),
-                           stop: function() {
-                               $(imgDiv).css("position", "inherit");
+                           start: function(){
+                               console.log("deneme")
+                           },
+                           stop: function() {                              
+                               $(imgDiv).css("position", "absolute");
                                pushToStack();
                            }
                        });
+                       
                        pushToStack();
-                   } else {
+                   } else {                                              
+                       
+                       console.log("resizeAndDragHandler --> existed object called");
+                       
                        //burada tüm image'lerin section parent'ları bulunur ve her biri tekrardan draggable hale getirilir
                        imgDiv = $(".boxContainer");
                        //image resize edildi ise
@@ -134,6 +155,7 @@
                                    handle: $(imgDiv[n]).find(".handleIcon")[0],
                                    containment: imgSection,
                                    stop: function() {
+                                       console.log("resizeAndDragHandler --> existed object .handle")
                                        pushToStack();
                                    }
                                });
@@ -142,6 +164,7 @@
                                    opacity: 0.5,
                                    containment: imgSection,
                                    stop: function() {
+                                       console.log("resizeAndDragHandler --> existed object not .handle")
                                        pushToStack();
                                    }
                                });
