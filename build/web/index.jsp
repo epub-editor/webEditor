@@ -743,31 +743,41 @@
                 *********************************** CLICK *************************************
                 ******************************************************************************/
                 // Bu section amacı tıklanılan element'e div eklenerek istediğimiz hale getirmektir.
-                $( "body" ).click(function( event ) {
+                $(document).click(function( event ) {
+                    
+                    
 //                    console.log("Clicked element " + event.target.nodeName);                    
 //                    console.log(event.target);
-                    
-                    if(event.target.nodeName=='P'){
-                        console.log("sss")
-                        $(event.target).attr('contenteditable' , 'true');
-                    }
-                    
-                    
+//                    
+//                    if(event.target.nodeName=='P'){
+//                        console.log("sss")
+//                        $(event.target).attr('contenteditable' , 'true');
+//                    }                                                                                                    
                 });
+                                                
                                          
                                          
                 /******************************************************************************
                 *********************************** DRAG-DROP *********************************
                 ******************************************************************************/
                 $('.operationDiv').draggable({ 
-                    revert: 'invalid'                     
+                    revert: function(event, ui) {                                                    
+                              
+                            // "http://devilmaycode.altervista.org/revert-a-jquery-draggable-object-back-to-its-original-container-on-out-event-of-d/" 
+                            // $(this).data("draggable")
+                            $(this).data('uiDraggable').originalPosition = {
+                                top : 0,
+                                left : 0
+                            };                            
+                            return true;
+                        }                   
                 });  
                 
                 $('#zbookPageContainer').droppable({
                     drop: function( event, ui ) {
                         
-                        $(ui.draggable).css('left','0px');
-                        $(ui.draggable).css('top','0px');
+//                        $(ui.draggable).css('left','0px');
+//                        $(ui.draggable).css('top','0px');                       
                         
                         // bu durumda metin kutusu eklenir  
                         if(ui.draggable.attr('id')==='addTextBox'){
@@ -787,12 +797,11 @@
                 ******************************************************************************/                    
                 $('iframe').load(function(){
                     
-//                    console.log("Load iframe element");
-//                    console.log(this);
+                    console.log("Load iframe element");
+                    console.log(this);
                     
                     $(this).contents().find('html').on('click', function(event) {  
-                        console.log("Ifame element clicked")
-                        
+                        console.log("Ifame element clicked")                        
                     });
                 });
                    
