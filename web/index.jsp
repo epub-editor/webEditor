@@ -42,6 +42,7 @@
                 height: 100px;
                 width: 100px;
                 background: #1c94c4;
+                margin: 5px;
             }
 
             .operationArea{ 
@@ -650,7 +651,8 @@
                         <div id="pageOperations"> 
 
                             <!-- operationDiv tutup çekilen divleri temsil etmektedir. -->
-                            <div id="addTextBox" class="operationDiv"></div>
+                            <div id="addTextBox" class="operationDiv"> Add text box</div>
+                            <div id="addImageBox" class="operationDiv"> Add Image Box</div>
                         </div>
                     </div>
 
@@ -757,20 +759,25 @@
                 /******************************************************************************
                 *********************************** DRAG-DROP *********************************
                 ******************************************************************************/
-                $('.operationDiv').draggable();                
+                $('.operationDiv').draggable({ 
+                    revert: 'invalid'                     
+                });  
+                
                 $('#zbookPageContainer').droppable({
                     drop: function( event, ui ) {
+                        
+                        $(ui.draggable).css('left','0px');
+                        $(ui.draggable).css('top','0px');
                         
                         // bu durumda metin kutusu eklenir  
                         if(ui.draggable.attr('id')==='addTextBox'){
                             //$(this).get(0).appendChild(addTextBox());
                             addTextBox(event);
-                        }                                                
-                        
-                        // drag edilen element degerleri alinir
-//                        console.log(ui.draggable.get(0));
-//                        console.log(ui.draggable.attr("id"));
-//                        console.log(this);
+                        }else if(ui.draggable.attr('id')==='addImageBox'){
+                            imageAddingLocation = 'front';
+                            $('#dialogAddImage').dialog('open');
+                        }                                                                                   
+                                                
                     }
                 });
             
