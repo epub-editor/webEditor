@@ -117,7 +117,7 @@
                        $(imgDiv).resizable({
                            containment: $(".present").get(0),
                            start: function(){
-                               console.log("deneme")
+                               console.log("resizeAndDragHandler --> Resize start event called");
                            },
                            stop: function() {                              
                                $(imgDiv).css("position", "absolute");

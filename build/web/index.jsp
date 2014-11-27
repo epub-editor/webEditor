@@ -1,3 +1,4 @@
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="tr" xmlns="http://www.w3.org/1999/xhtml">
@@ -59,7 +60,9 @@
     <body>
         <!-- custom alert box -->
         <div hidden id="alertDialog" title="UyarÄ±"></div>
-        <div id="preLoader" class="esLoader"></div>
+        <div id="preLoader" class="esLoader" style="height: 100%; width: 100%;"></div>
+        
+        
         <div class="esNoJS">
             LÃ¼tfen tarayÄ±cÄ±nÄ±zÄ±n Javascript ayarlarÄ±nÄ± aktif hale getiriniz
         </div>
@@ -624,7 +627,7 @@
                                     </ul>
                                 </li>
                                 <li id="ulHelpMenu" >
-                                    <a href="#">YardÄ±m</a>
+                                    <a href="#">Yardım</a>
                                     <ul>
                                         <li class="ui-sub-menu-item">
                                             <a href="#" id="menuShortcutInfo">
@@ -653,6 +656,7 @@
                             <!-- operationDiv tutup çekilen divleri temsil etmektedir. -->
                             <div id="addTextBox" class="operationDiv"> Add text box</div>
                             <div id="addImageBox" class="operationDiv"> Add Image Box</div>
+                            <div id="addVideoBox" class="operationDiv"> Add Video Box</div>
                         </div>
                     </div>
 
@@ -665,9 +669,9 @@
                     </div>
                 </div>
                 
-                <div id="zbookBookContainer" style=" bottom: 10%;">
-                
-                    <iframe src="epubTemp/OPS/s001-Other-01.xhtml"></iframe>
+                <div id="zbookBookContainer">
+                    
+                    <div class="draggableIframeDIV" style="padding: 15px; margin: 15px; background: salmon; width: 400px; height: 200px; overflow: auto; "><iframe style="height: 100% !important; width: 100% !important;" src="epubTemp/OPS/s001-Other-01.xhtml"></iframe></div>
                     <iframe src="epubTemp/OPS/s002-Frontispiece-01.xhtml"></iframe>
                     <iframe src="epubTemp/OPS/s003-BookTitlePage-01.xhtml"></iframe>               
 
@@ -708,35 +712,38 @@
         <script src="js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
         <script src="js/jquery-ui-1.10.3.custom.js" type="text/javascript"></script>                        
         <script src="js/jwerty.js" type="text/javascript"></script>
-        <script src="spectrum/spectrum.js" type="text/javascript"></script>        
-       
+        <script src="spectrum/spectrum.js" type="text/javascript"></script>               
         <script src="js/contextMenu/jquery.contextMenu.js" type="text/javascript"></script>
         <script src="js/contextMenu/jquery.ui.position.js" type="text/javascript"></script>
 
-        <script src="js/es-undoRedo.js" type="text/javascript"></script>              
-        <script src="js/es-selection.js" type="text/javascript"></script>
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAQkZ0hPQiLT4_efvb4IuskAk1neh3r8Fk&sensor=true&libraries=places"></script>
+        
+        <!-- undo & redo handler --> 
+            <script src="js/es-undoRedo.js" type="text/javascript"></script>           
+        <!-- text selection operation-->
+            <script src="js/es-selection.js" type="text/javascript"></script>        
+        <!-- map library -->
+            <script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAQkZ0hPQiLT4_efvb4IuskAk1neh3r8Fk&sensor=true&libraries=places" type="text/javascript"></script>
+        
+            
         <script src="js/es-init.js" type="text/javascript"></script>  
+        
         <script src="js/es-server.js" type="text/javascript"></script> 
         <script src="js/es-text-modifications.js" type="text/javascript"></script> 
         <script src="js/es-presentation.js" type="text/javascript"></script> 
         <script src="js/es-image.js" type="text/javascript"></script> 
         <script src="js/es-elements.js" type="text/javascript"></script> 
-        <script src="js/es-print.js" type="text/javascript"></script>
-        <script src="js/test.js" type="text/javascript"></script> 
-        <script src="lib/js/head.min.js" type="text/javascript"></script>	
-        
+        <script src="js/es-print.js" type="text/javascript"></script>        
+        <script src="lib/js/head.min.js" type="text/javascript"></script>	        
         <script src="js/html2canvas.js" type="text/javascript"></script>        
         <script src="js/test.js" type="text/javascript"></script>        
         
-<!--        <script src="js/reveal.js" type="text/javascript"></script> -->
         
         <script type="text/javascript">
             
             
                 /******************************************************************************
                 ****************************** INITIALIZATION *********************************
-                ******************************************************************************/
+                ******************************************************************************/                                                          
                      
     
                 /******************************************************************************
@@ -744,23 +751,21 @@
                 ******************************************************************************/
                 // Bu section amacı tıklanılan element'e div eklenerek istediğimiz hale getirmektir.
                 $(document).click(function( event ) {
+                                        
+                    console.log("Clicked element " + event.target.nodeName);                    
+                    console.log(event.target);
                     
-                    
-//                    console.log("Clicked element " + event.target.nodeName);                    
-//                    console.log(event.target);
-//                    
-//                    if(event.target.nodeName=='P'){
-//                        console.log("sss")
-//                        $(event.target).attr('contenteditable' , 'true');
-//                    }                                                                                                    
-                });
-                                                
+                    if(event.target.nodeName=='IMG'){
+                        console.log("sss")
+                        $(event.target).attr('contenteditable' , 'true');
+                    }                                                                                                    
+                });                      
                                          
                                          
                 /******************************************************************************
                 *********************************** DRAG-DROP *********************************
-                ******************************************************************************/
-                $('.operationDiv').draggable({ 
+                ******************************************************************************/                                
+                $('.operationDiv , .draggableIframeDIV').draggable({                     
                     revert: function(event, ui) {                                                    
                               
                             // "http://devilmaycode.altervista.org/revert-a-jquery-draggable-object-back-to-its-original-container-on-out-event-of-d/" 
@@ -773,77 +778,54 @@
                         }                   
                 });  
                 
-                $('#zbookPageContainer').droppable({
-                    drop: function( event, ui ) {
-                        
-//                        $(ui.draggable).css('left','0px');
-//                        $(ui.draggable).css('top','0px');                       
-                        
-                        // bu durumda metin kutusu eklenir  
+                $('#zbookPageContainer').droppable({                    
+                    drop: function( event, ui ) {                                                                                                                     
+                                                                                                                     
                         if(ui.draggable.attr('id')==='addTextBox'){
+                            
                             //$(this).get(0).appendChild(addTextBox());
                             addTextBox(event);
+                            
                         }else if(ui.draggable.attr('id')==='addImageBox'){
+                            
                             imageAddingLocation = 'front';
                             $('#dialogAddImage').dialog('open');
-                        }                                                                                   
+                            
+                        }else if(ui.draggable.attr('id')==='addVideoBox'){
+                            
+                            $("#dialogAddVideo").dialog("open");
+                            
+                        }else if(ui.draggable.hasClass('draggableIframeDIV')){
+                            
+                            
+                            alert("iframe content will be cloned to edittable area");
+                            $(ui.draggable.find('iframe').get(0)).appendTo('.present');
+                            console.log(ui.draggable.find('iframe').get(0))
+                        }                      
                                                 
                     }
                 });
-            
-                
+                            
                 /******************************************************************************
                 *********************************** IFRAME ************************************
-                ******************************************************************************/                    
-                $('iframe').load(function(){
-                    
-                    console.log("Load iframe element");
-                    console.log(this);
-                    
-                    $(this).contents().find('html').on('click', function(event) {  
-                        console.log("Ifame element clicked")                        
-                    });
-                });
+                ******************************************************************************/
+//                $('iframe').load(function(){
+//                    
+//                    console.log(this);
+//                    
+//                    $(this).contents().find("html").on('click', function(event) {
+//                        
+//                    });
+//                });
                    
                 
+                
+                
                                     
-            
-
-            if( $.browser.msie && $.browser.version < 10 ){
-                $("div").remove();
-                document.write("<font id=\"browserSupport\">LÃ¼tfen Internet Explorer 10 ve Ã¼zeri ya da diÄer tarayÄ±cÄ±lar ile tekrar deneyiniz!</font>");
-            }else{
-//            
-//<%
-//            String remoteOpen = (String) session.getAttribute("remoteOpen");
-//            if (remoteOpen != null && remoteOpen.equals("true")) {
-%>//  
-//                var responseFromServer = <%=(String) session.getAttribute("presentationContent")%>;
-//                settings = responseFromServer.settings;
-//                $("#sectionContainer").html(responseFromServer.content);
-//                $("#sectionContainer").css("font-family", settings.fontType);
-//                
-//                //Restoring video iframes
-//                $(".videoContainer").each(function() {
-//                    var video = document.createElement("IFRAME");
-//                    video.src = $(this).find("input[type=hidden]").val();
-//                    video.className = "videoContainerInner";
-//                    $(this).append(video);
-//                });
-//
-//<%
-//            }
-
-//            request.getSession().removeAttribute("currentPresentationId");
-//            request.getSession().removeAttribute("remoteOpen");
-//            request.getSession().removeAttribute("presentationContent");
-%>
-           
-            
-            }
+               
+               
 
         </script>
-
         
             
 
