@@ -657,6 +657,8 @@
                             <div id="addTextBox" class="operationDiv"> Add text box</div>
                             <div id="addImageBox" class="operationDiv"> Add Image Box</div>
                             <div id="addVideoBox" class="operationDiv"> Add Video Box</div>
+                            <div id="addFigureBox" class="operationDiv"> Add Figure Box</div>
+                            <div id="addCanvastoDraw" class="operationDiv"> Add Canvas Box</div>
                         </div>
                     </div>
 
@@ -735,7 +737,7 @@
         <script src="js/es-print.js" type="text/javascript"></script>        
         <script src="lib/js/head.min.js" type="text/javascript"></script>	        
         <script src="js/html2canvas.js" type="text/javascript"></script>        
-        <script src="js/test.js" type="text/javascript"></script>        
+                
         
         
         <script type="text/javascript">
@@ -795,13 +797,20 @@
                             
                             $("#dialogAddVideo").dialog("open");
                             
-                        }else if(ui.draggable.hasClass('draggableIframeDIV')){
+                        }else if(ui.draggable.attr('id')==='addFigureBox'){
                             
+                            $("#dialogAddFigure").dialog("open");
+                            
+                        }else if(ui.draggable.attr('id')==='addCanvastoDraw'){
+                            
+                            $("#dialogAddCanvastoDraw").dialog("open");
+                            
+                        }else if(ui.draggable.hasClass('draggableIframeDIV')){
                             
                             alert("iframe content will be cloned to edittable area");
                             $(ui.draggable.find('iframe').get(0)).appendTo('.present');
                             console.log(ui.draggable.find('iframe').get(0))
-                        }                      
+                        }                       
                                                 
                     }
                 });
@@ -826,7 +835,7 @@
                
 
         </script>
-        
+        <script src="js/test.js" type="text/javascript"></script>
             
 
     </body>
