@@ -840,9 +840,12 @@
                             
                         }else if(ui.draggable.hasClass('draggableIframeDIV')){
                             
-                            alert("iframe content will be cloned to edittable area");
-                            $(ui.draggable.find('iframe').get(0)).appendTo('.present');
-                            console.log(ui.draggable.find('iframe').get(0))
+                            // öncesinde içeride başka sayfa varsa onunla alakalı işlemler yapılır
+            
+                            // iframe clone 'u alınır    
+                            iframeClone = ui.draggable.find('iframe').get(0);   
+                            $(iframeClone).addClass('iframeEditMode');
+                            $(iframeClone).clone(true).appendTo('.present');
                         }                       
                                                 
                     }
@@ -851,14 +854,71 @@
                 /******************************************************************************
                 *********************************** IFRAME ************************************
                 ******************************************************************************/
-//                $('iframe').load(function(){
-//                    
-//                    console.log(this);
-//                    
-//                    $(this).contents().find("html").on('click', function(event) {
-//                        
-//                    });
-//                });
+                 $('iframe').load(function(){                                                          
+        
+                    /**
+                     * Initialization                     
+                     */
+                    if($(this).hasClass('iframeEditMode')){                     // iframe edittable alana load olması durumunda gerekli link ve script'ler import edilir.
+                        importFilesToIframe(this);
+                    }
+                    
+                    /**
+                     * Events 
+                     */
+                    $(this).contents().find('html').on('click', function(event) {                                                
+                        
+                        if(event.target.nodeName=='p' || event.target.nodeName=='P'){  
+                            
+                            $(event.target).attr('contenteditable' , 'true');
+                            
+                        }else if(event.target.nodeName=='IMG' || event.target.nodeName=='img'){
+                            console.log(' iframe --> image clicked ');
+                            
+                            console.log(event.target);
+                            console.log(event.target.src);                                        
+                            
+                            addGenericDIV(event.target);
+           
+                        }else if(event.target.nodeName=='DIV' || event.target.nodeName=='div'){
+                            console.log("div elemen t clicked");
+                        }
+                        
+                    });
+                    
+                });  
+
+
+                /******************************************************************************
+                ******************************* UTIL FUNCTIONS ********************************
+                ******************************************************************************/
+                function importFilesToIframe(iframeElem){                                        
+                    
+                    scriptNew = document.createElement('script');
+                    scriptNew.src = '../../' + 'js/zb-handler.js';
+                    $(scriptNew).appendTo($(iframeElem).contents().find('head').get(0)); 
+                                        
+                }
+                
+                
+                function addGenericDIV( elementToPutIn ) {
+                    var genDiv = document.createElement("div");
+                    genDiv.contentEditable = "false";
+                    genDiv.classList.add("boxContainer");
+
+
+                    var removeElem = document.createElement("a");
+                    removeElem.href = "#";
+                    removeElem.className = "deleteIcon ui-icon-closethick";
+                    genDiv.appendChild(removeElem);
+                    
+                                                                                
+                    $(genDiv).insertAfter(elementToPutIn);                                        
+                    $(elementToPutIn).appendTo(genDiv);                   
+
+//                   resizeAndDragHandler(imgDiv, true);
+
+               }
                    
                 
                 
