@@ -796,7 +796,7 @@ for(int i=1; i<5; i++){
       out.write("        <script src=\"js/es-print.js\" type=\"text/javascript\"></script>        \r\n");
       out.write("        <script src=\"lib/js/head.min.js\" type=\"text/javascript\"></script>\t        \r\n");
       out.write("        <script src=\"js/html2canvas.js\" type=\"text/javascript\"></script>        \r\n");
-      out.write("        <script src=\"js/test.js\" type=\"text/javascript\"></script>        \r\n");
+      out.write("                \r\n");
       out.write("        \r\n");
       out.write("        \r\n");
       out.write("        <script type=\"text/javascript\">\r\n");
@@ -856,13 +856,20 @@ for(int i=1; i<5; i++){
       out.write("                            \r\n");
       out.write("                            $(\"#dialogAddVideo\").dialog(\"open\");\r\n");
       out.write("                            \r\n");
-      out.write("                        }else if(ui.draggable.hasClass('draggableIframeDIV')){\r\n");
+      out.write("                        }else if(ui.draggable.attr('id')==='addFigureBox'){\r\n");
       out.write("                            \r\n");
+      out.write("                            $(\"#dialogAddFigure\").dialog(\"open\");\r\n");
+      out.write("                            \r\n");
+      out.write("                        }else if(ui.draggable.attr('id')==='addCanvastoDraw'){\r\n");
+      out.write("                            \r\n");
+      out.write("                            $(\"#dialogAddCanvastoDraw\").dialog(\"open\");\r\n");
+      out.write("                            \r\n");
+      out.write("                        }else if(ui.draggable.hasClass('draggableIframeDIV')){\r\n");
       out.write("                            \r\n");
       out.write("                            alert(\"iframe content will be cloned to edittable area\");\r\n");
       out.write("                            $(ui.draggable.find('iframe').get(0)).appendTo('.present');\r\n");
       out.write("                            console.log(ui.draggable.find('iframe').get(0))\r\n");
-      out.write("                        }                      \r\n");
+      out.write("                        }                       \r\n");
       out.write("                                                \r\n");
       out.write("                    }\r\n");
       out.write("                });\r\n");
@@ -887,11 +894,11 @@ for(int i=1; i<5; i++){
       out.write("               \r\n");
       out.write("\r\n");
       out.write("        </script>\r\n");
-      out.write("        \r\n");
+      out.write("        <script src=\"js/test.js\" type=\"text/javascript\"></script>\r\n");
       out.write("            \r\n");
       out.write("\r\n");
       out.write("    </body>\r\n");
-      out.write("</html>\r\n");
+      out.write("</html>");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;
