@@ -771,3 +771,94 @@
 //
 //               });        
                                 
+
+            
+            
+            
+            
+                /******************************************************************************
+                ****************************** INITIALIZATION *********************************
+                ******************************************************************************/                                                          
+                     
+    
+                /******************************************************************************
+                *********************************** CLICK *************************************
+                ******************************************************************************/
+                // Bu section amacı tıklanılan element'e div eklenerek istediğimiz hale getirmektir.
+                $(document).click(function( event ) {
+                                        
+                    console.log("Clicked element " + event.target.nodeName);                    
+                    console.log(event.target);
+                    
+                    if(event.target.nodeName=='IMG'){
+                        console.log("sss")
+                        $(event.target).attr('contenteditable' , 'true');
+                    }                                                                                                    
+                });                      
+                                         
+                                         
+                /******************************************************************************
+                *********************************** DRAG-DROP *********************************
+                ******************************************************************************/                                
+                $('.operationDiv , .draggableIframeDIV').draggable({                     
+                    revert: function(event, ui) {                                                    
+                              
+                            // "http://devilmaycode.altervista.org/revert-a-jquery-draggable-object-back-to-its-original-container-on-out-event-of-d/" 
+                            // $(this).data("draggable")
+                            $(this).data('uiDraggable').originalPosition = {
+                                top : 0,
+                                left : 0
+                            };                            
+                            return true;
+                        }                   
+                });  
+                
+                $('#zbookPageContainer').droppable({                    
+                    drop: function( event, ui ) {                                                                                                                     
+                                                                                                                     
+                        if(ui.draggable.attr('id')==='addTextBox'){
+                            
+                            //$(this).get(0).appendChild(addTextBox());
+                            addTextBox(event);
+                            
+                        }else if(ui.draggable.attr('id')==='addImageBox'){
+                            
+                            imageAddingLocation = 'front';
+                            $('#dialogAddImage').dialog('open');
+                            
+                        }else if(ui.draggable.attr('id')==='addVideoBox'){
+                            
+                            $("#dialogAddVideo").dialog("open");
+                            
+                        }else if(ui.draggable.attr('id')==='addFigureBox'){
+                            
+                            $("#dialogAddFigure").dialog("open");
+                            
+                        }else if(ui.draggable.attr('id')==='addCanvastoDraw'){
+                            
+                            $("#dialogAddCanvastoDraw").dialog("open");
+                            
+                        }else if(ui.draggable.hasClass('draggableIframeDIV')){
+                            
+                            alert("iframe content will be cloned to edittable area");
+                            $(ui.draggable.find('iframe').get(0)).appendTo('.present');
+                            console.log(ui.draggable.find('iframe').get(0))
+                        }                       
+                                                
+                    }
+                });
+                            
+                /******************************************************************************
+                *********************************** IFRAME ************************************
+                ******************************************************************************/
+//                $('iframe').load(function(){
+//                    
+//                    console.log(this);
+//                    
+//                    $(this).contents().find("html").on('click', function(event) {
+//                        
+//                    });
+//                });
+                   
+                
+                
