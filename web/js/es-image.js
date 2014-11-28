@@ -32,7 +32,7 @@
 
                    if (imagetype !== null && imagetype === "figure") {
                        imgDiv.classList.add("figureContainer");
-                   }else if( imagetype === "canvasdrawing"){
+                   }else if( imagetype !== null && imagetype === "canvasdrawing"){
                        imgDiv.classList.add("canvasDrawingContainer");
                    }
 

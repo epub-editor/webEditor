@@ -657,12 +657,13 @@
                             <div id="addTextBox" class="operationDiv"> Add text box</div>
                             <div id="addImageBox" class="operationDiv"> Add Image Box</div>
                             <div id="addVideoBox" class="operationDiv"> Add Video Box</div>
+                            
                         </div>
                     </div>
 
                     <div id="zbookPageContainer" class="edittablePagex" style="float:right; height: 500px; width: 80%; background: #EEE">
 
-                        <section class="present" style="height: 100%; width: 100%; background: #EEE">                            
+                        <section class="present" style="height: 100%; width: 100%; background: #EEE; overflow: auto;">                            
                             
                         </section>
 
@@ -734,33 +735,31 @@
         <script src="js/es-elements.js" type="text/javascript"></script> 
         <script src="js/es-print.js" type="text/javascript"></script>        
         <script src="lib/js/head.min.js" type="text/javascript"></script>	        
-        <script src="js/html2canvas.js" type="text/javascript"></script>        
-        <script src="js/test.js" type="text/javascript"></script>        
-        
+        <script src="js/html2canvas.js" type="text/javascript"></script>                                
         
         <script type="text/javascript">
             
             
                 /******************************************************************************
                 ****************************** INITIALIZATION *********************************
-                ******************************************************************************/                                                          
-                     
+                ******************************************************************************/
+                 
     
                 /******************************************************************************
                 *********************************** CLICK *************************************
                 ******************************************************************************/
                 // Bu section amacı tıklanılan element'e div eklenerek istediğimiz hale getirmektir.
-                $(document).click(function( event ) {
-                                        
-                    console.log("Clicked element " + event.target.nodeName);                    
-                    console.log(event.target);
-                    
-                    if(event.target.nodeName=='IMG'){
-                        console.log("sss")
-                        $(event.target).attr('contenteditable' , 'true');
-                    }                                                                                                    
-                });                      
-                                         
+//                $(document).click(function( event ) {
+//
+//                    console.log("Clicked element " + event.target.nodeName);                    
+//                    console.log(event.target);
+//
+//                    if(event.target.nodeName=='IMG' || event.target.nodeName=='img'){
+//                        console.log("sss")
+//                        $(event.target).attr('contenteditable' , 'true');
+//                    }                                                                                                    
+//                }); 
+                
                                          
                 /******************************************************************************
                 *********************************** DRAG-DROP *********************************
@@ -779,8 +778,8 @@
                 });  
                 
                 $('#zbookPageContainer').droppable({                    
-                    drop: function( event, ui ) {                                                                                                                     
-                                                                                                                     
+                    drop: function( event, ui ) {                                                                                                                                                    
+        
                         if(ui.draggable.attr('id')==='addTextBox'){
                             
                             //$(this).get(0).appendChild(addTextBox());
@@ -798,34 +797,85 @@
                         }else if(ui.draggable.hasClass('draggableIframeDIV')){
                             
                             
-                            alert("iframe content will be cloned to edittable area");
-                            $(ui.draggable.find('iframe').get(0)).appendTo('.present');
-                            console.log(ui.draggable.find('iframe').get(0))
+                            // öncesinde içeride başka sayfa varsa onunla alakalı işlemler yapılır
+            
+                            // iframe clone 'u alınır    
+                            iframeClone = ui.draggable.find('iframe').get(0);   
+                            $(iframeClone).addClass('iframeEditMode');
+                            $(iframeClone).clone(true).appendTo('.present');                                                                                                                                                                                                             
+                            
                         }                      
                                                 
                     }
                 });
                             
                 /******************************************************************************
-                *********************************** IFRAME ************************************
+                ******************************** IFRAME HANDLER *******************************
                 ******************************************************************************/
-//                $('iframe').load(function(){
-//                    
-//                    console.log(this);
-//                    
-//                    $(this).contents().find("html").on('click', function(event) {
-//                        
-//                    });
-//                });
-                   
+                $('iframe').load(function(){                                                          
+        
+                    /**
+                     * Initialization                     
+                     */
+                    if($(this).hasClass('iframeEditMode')){                     // iframe edittable alana load olması durumunda gerekli link ve script'ler import edilir.
+                        importFilesToIframe(this);
+                    }
+                    
+                    /**
+                     * Events 
+                     */
+                    $(this).contents().find('html').on('click', function(event) {                                                
+                        
+                        if(event.target.nodeName=='p' || event.target.nodeName=='P'){  
+                            
+                            $(event.target).attr('contenteditable' , 'true');
+                            
+                        }else if(event.target.nodeName=='IMG' || event.target.nodeName=='img'){
+                            console.log(' iframe --> image clicked ');
+                            
+                            console.log(event.target);
+                            console.log(event.target.src);                                        
+                            
+                            addGenericDIV(event.target);
+           
+                        }else if(event.target.nodeName=='DIV' || event.target.nodeName=='div'){
+                            console.log("div elemen t clicked");
+                        }
+                        
+                    });
+                    
+                });  
+                
+                function importFilesToIframe(iframeElem){                                        
+                    
+                    scriptNew = document.createElement('script');
+                    scriptNew.src = '../../' + 'js/zb-handler.js';
+                    $(scriptNew).appendTo($(iframeElem).contents().find('head').get(0)); 
+                                        
+                }
                 
                 
-                
-                                    
-               
-               
+                function addGenericDIV( elementToPutIn ) {
+                    var genDiv = document.createElement("div");
+                    genDiv.contentEditable = "false";
+                    genDiv.classList.add("boxContainer");
 
+
+                    var removeElem = document.createElement("a");
+                    removeElem.href = "#";
+                    removeElem.className = "deleteIcon ui-icon-closethick";
+                    genDiv.appendChild(removeElem);
+                    
+                                                                                
+                    $(genDiv).insertAfter(elementToPutIn);                                        
+                    $(elementToPutIn).appendTo(genDiv);                   
+
+//                   resizeAndDragHandler(imgDiv, true);
+
+               }
+                                                                                             
         </script>
+        <script src="js/test.js" type="text/javascript"></script>
         
             
 
