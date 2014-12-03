@@ -672,8 +672,8 @@
 
                     <div id="zbookPageContainer" class="edittablePagex" style="float:right; height: 500px; width: 80%; background: #EEE">
 
-                        <section class="present" style="height: 100%; width: 100%; background: #EEE">                            
-                            
+                        <section class="present" style="height: 100%; width: 100%; background: #EEE">                                                        
+                                
                         </section>
 
                     </div>

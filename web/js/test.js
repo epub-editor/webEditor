@@ -1103,4 +1103,8 @@
                    
                    
                 
+//                $('img').load(function(event){
+//                    console.log("deneme")
+//                    console.log(event.target);
+//                })
                 
