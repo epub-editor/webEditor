@@ -12,6 +12,12 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
             
             <title>EBA Sunum</title>
+            
+            <!-- Burada iframe'in css'leri import edilir. Import edilme işlemi -->
+            <style>                
+                @import url('http://localhost:8080/epubTemp/OPS/css/recollections-of-wartime.css');
+            </style>
+            
             <link href="css/eba-sunum-theme/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />            
             <link rel="stylesheet" href="css/theme/default.css" id="theme"/>
             <link rel="stylesheet" type="text/css" href="css/style.css"/>
@@ -26,7 +32,7 @@
             
             <!--<link rel="stylesheet" href="css/reveal.css"/>-->
             
-        <style>
+        <style>            
             .edittablePage{
                 position:fixed;
                 top: 25%;                    
@@ -53,6 +59,7 @@
                 height:600px;                                 
                 background-color: #f3f3f3;                
             }
+                        
         </style>             
                         
     </head>
@@ -312,11 +319,11 @@
                             
                             <div id="dialogBackgroundColor" title="Arkaplan Rengi" class="esColorPicker">
                                 <iframe id="iframeFontColor" src="colorpicker_bg.html" frameborder="0" style="height: 250px;"></iframe>
-                            </div>
-                            
-                            <div id="dialogAddCanvasToDraw" title="Serbest Ãizim">
+                            </div>                                                                     
+                                        
+                            <div id="dialogAddCanvasToDraw" title="Serbest Çizim">
                                 <div id="addCanvasHeaderDiv">
-                                    <span>YazÄ± Boyutu</span>
+                                    <span>Yazı Boyutu</span>
                                     <div style="width:60px;" class="selectDivContainer">
                                         <select id="selectBrushSize">
                                             <option value="1">1</option>
@@ -328,22 +335,22 @@
                                             <option value="7">7</option>
                                         </select>
                                     </div>
-                                    <span>YazÄ± Rengi</span>
+                                    <span>Yazı Rengi</span>
                                     <div style="width:60px;" class="selectDivContainer">
                                         <select id="selectBrushColor">
                                             <option value="BLACK">Siyah</option>
-                                            <option value="RED">KÄ±rmÄ±zÄ±</option>
+                                            <option value="RED">Kırmızı</option>
                                             <option value="BLUE">Mavi</option>
-                                            <option value="YELLOW">SarÄ±</option>
-                                            <option value="GREEN">YeÅil</option>
+                                            <option value="YELLOW">Sarı±</option>
+                                            <option value="GREEN">Yeşil</option>
                                             <option value="PINK">Pembe</option>
                                             <option value="GRAY">Gri</option>
                                         </select>
                                     </div>
                                 </div>
                                 
-                                <div id="canvasArea"></div>
-                            </div>
+                                <div id="canvasArea"></div>                               
+                            </div>                                        
                                         
                             <div id="dialogHyperlink" title="BaÄlantÄ± Ekle/KaldÄ±r">
                                 <div class="esFormContainer">
@@ -658,7 +665,8 @@
                             <div id="addImageBox" class="operationDiv"> Add Image Box</div>
                             <div id="addVideoBox" class="operationDiv"> Add Video Box</div>
                             <div id="addFigureBox" class="operationDiv"> Add Figure Box</div>
-                            <div id="addCanvastoDraw" class="operationDiv"> Add Canvas Box</div>
+                            <div id="addDrawBox" class="operationDiv"> Add Canvas Box</div>
+                            
                         </div>
                     </div>
 
@@ -716,19 +724,11 @@
         <script src="js/jwerty.js" type="text/javascript"></script>
         <script src="spectrum/spectrum.js" type="text/javascript"></script>               
         <script src="js/contextMenu/jquery.contextMenu.js" type="text/javascript"></script>
-        <script src="js/contextMenu/jquery.ui.position.js" type="text/javascript"></script>
-
-        
-        <!-- undo & redo handler --> 
-            <script src="js/es-undoRedo.js" type="text/javascript"></script>           
-        <!-- text selection operation-->
-            <script src="js/es-selection.js" type="text/javascript"></script>        
-        <!-- map library -->
-            <script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAQkZ0hPQiLT4_efvb4IuskAk1neh3r8Fk&sensor=true&libraries=places" type="text/javascript"></script>
-        
-            
-        <script src="js/es-init.js" type="text/javascript"></script>  
-        
+        <script src="js/contextMenu/jquery.ui.position.js" type="text/javascript"></script>                
+        <script src="js/es-undoRedo.js" type="text/javascript"></script>                   
+        <script src="js/es-selection.js" type="text/javascript"></script>               
+        <script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAQkZ0hPQiLT4_efvb4IuskAk1neh3r8Fk&sensor=true&libraries=places" type="text/javascript"></script>                    
+        <script src="js/es-init.js" type="text/javascript"></script>          
         <script src="js/es-server.js" type="text/javascript"></script> 
         <script src="js/es-text-modifications.js" type="text/javascript"></script> 
         <script src="js/es-presentation.js" type="text/javascript"></script> 
@@ -736,7 +736,8 @@
         <script src="js/es-elements.js" type="text/javascript"></script> 
         <script src="js/es-print.js" type="text/javascript"></script>        
         <script src="lib/js/head.min.js" type="text/javascript"></script>	        
-        <script src="js/html2canvas.js" type="text/javascript"></script>        
+        <script src="js/html2canvas.js" type="text/javascript"></script>
+        
         <script src="js/test.js" type="text/javascript"></script>
             
 

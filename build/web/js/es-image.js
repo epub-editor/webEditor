@@ -157,7 +157,7 @@
                        }
                    ]
                });
-
+                              
                $("#dialogAddFigure").dialog({
                    autoOpen: false,
                    width: 745,
@@ -170,6 +170,39 @@
                            click: function() {
                                var selectedImage = $("#dialogAddFigure div[eba-selected=true] img");
                                addImage(selectedImage.attr("src"), "figure");
+                               $(this).dialog("close");
+                           }
+                       },
+                       {
+                           text: "İptal",
+                           click: function() {
+                               $(this).dialog("close");
+                           }
+                       }
+                   ]
+               });
+
+               
+               $("#dialogAddCanvasToDraw").dialog({                  
+                   autoOpen: false,
+                   width: 745,
+                   minHeight: 500,
+                   modal: true,
+                   resizable: false,
+                   open: function() {
+                       
+                       $("#canvasArea").empty();
+                       drawingColor = "BLACK";
+                       drawingSize = 1;
+                       $("#selectBrushColor").val(drawingColor);
+                       $("#selectBrushSize").val(drawingSize);
+                       initCanvasForDrawing($("#canvasArea").get(0), 710, 400, "#fff");
+                   },
+                   buttons: [
+                       {
+                           text: "Ekle",
+                           click: function() {
+                               addImage($("#drawedCanvas").get(0).toDataURL("image/png"), "canvasdrawing");
                                $(this).dialog("close");
                            }
                        },

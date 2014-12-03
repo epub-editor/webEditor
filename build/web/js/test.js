@@ -769,9 +769,7 @@
 //                   });
 //
 //
-//               });        
-                                
-
+//               });
             
             
             
@@ -779,7 +777,56 @@
                 /******************************************************************************
                 ****************************** INITIALIZATION *********************************
                 ******************************************************************************/                                                          
-                     
+               
+//                document.write('<script src="jquery-1.9.1.js" type="text/javascript"></script>');                       
+//                document.write('<script src="jquery-migrate-1.2.1.min.js" type="text/javascript"></script>');
+//                document.write('<script src="jquery-ui-1.10.3.custom.js" type="text/javascript"></script>');
+//                document.write('<script src="jwerty.js" type="text/javascript"></script>');
+//                document.write('<script src="spectrum/spectrum.js" type="text/javascript"></script>');
+//                document.write('<script src="contextMenu/jquery.contextMenu.js" type="text/javascript"></script>');
+//                document.write('<script src="contextMenu/jquery.ui.position.js" type="text/javascript"></script>');        
+//
+//                // undo & redo handler            
+//                document.write('<script src="es-undoRedo.js" type="text/javascript"></script>');
+//                // text selection operation
+//                document.write('<script src="es-selection.js" type="text/javascript"></script>');
+//                // map library
+//                document.write('<script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAQkZ0hPQiLT4_efvb4IuskAk1neh3r8Fk&sensor=true&libraries=places" type="text/javascript"></script>');        
+//
+//                document.write('<script src="es-init.js" type="text/javascript"></script>');        
+//
+//                document.write('<script src="es-server.js" type="text/javascript"></script>');
+//                document.write('<script src="es-text-modifications.js" type="text/javascript"></script>');
+//                document.write('<script src="es-presentation.js" type="text/javascript"></script>');
+//                document.write('<script src="es-image.js" type="text/javascript"></script>');
+//                document.write('<script src="es-elements.js" type="text/javascript"></script>');
+//                document.write('<script src="es-print.js" type="text/javascript"></script>');
+//                document.write('<script src="js/head.min.js" type="text/javascript"></script>');
+//                document.write('<script src="html2canvas.js" type="text/javascript"></script>');
+                
+                
+                
+                function checkFocus() {
+                    console.log(document.activeElement.tagName);
+                    if(document.activeElement.tagName == 'IFRAME' || document.activeElement.tagName == 'iframe') {                        
+                        console.log('iframe has focus');
+                        
+                        
+//                        $(document.activeElement).contents().find('html').on('mouseover', function(event) {
+//                            
+//                            console.log(event.target);
+//                            console.log('iframe html hover');
+//                            
+//                        });
+                                
+                                
+                    } else {
+                        console.log('iframe not focused');
+                    }
+                }
+//                window.setInterval(checkFocus, 1000); 
+                
+                                                
     
                 /******************************************************************************
                 *********************************** CLICK *************************************
@@ -828,24 +875,24 @@
                             
                         }else if(ui.draggable.attr('id')==='addVideoBox'){
                             
-                            $("#dialogAddVideo").dialog("open");
+                            $('#dialogAddVideo').dialog('open');
                             
                         }else if(ui.draggable.attr('id')==='addFigureBox'){
                             
-                            $("#dialogAddFigure").dialog("open");
+                            $('#dialogAddFigure').dialog('open');                                                        
                             
-                        }else if(ui.draggable.attr('id')==='addCanvastoDraw'){
-                            
-                            $("#dialogAddCanvastoDraw").dialog("open");
+                        }else if(ui.draggable.attr('id')==='addDrawBox'){
+                                                                       
+                            $('#dialogAddCanvastoDraw').dialog('open');                             
                             
                         }else if(ui.draggable.hasClass('draggableIframeDIV')){
-                            
-                            // öncesinde içeride başka sayfa varsa onunla alakalı işlemler yapılır
-            
+                                                                                                                            
                             // iframe clone 'u alınır    
-                            iframeClone = ui.draggable.find('iframe').get(0);   
-                            $(iframeClone).addClass('iframeEditMode');
-                            $(iframeClone).clone(true).appendTo('.present');
+                            iframeClone = ui.draggable.find('iframe').get(0);  
+                            loadIframeContentMode_1(iframeClone);
+                            
+//                            $(iframeClone).addClass('iframeEditMode');
+//                            $(iframeClone).clone(true).appendTo('.present');
                         }                       
                                                 
                     }
@@ -854,7 +901,41 @@
                 /******************************************************************************
                 *********************************** IFRAME ************************************
                 ******************************************************************************/
-                 $('iframe').load(function(){                                                          
+                // ---
+                // aşağıda comment alınmış alan document'in kendi iframe 'leri için geçerlidir. Edit edilebilir alana taşınması durumu için geçerli değildir.
+                // ---
+                 
+                $('iframe').contents().find('html').on('mouseover', function(event) {
+                            
+                        console.log(event.target);
+                        console.log('iframe html hover');
+
+                    });
+                    
+                    
+                    
+                $('iframe').load(function(){  
+                    
+                    
+                    /**
+                     * Iframe load edilme "zbookPageContainer" içerisinde ise loadIframeContentMode_1() kullanılır
+                     */
+                    
+                    // if iframe loaded to '#zbookPageContainer' child then load script and css to iframe 
+                    console.log($('#zbookPageContainer').find(this).length);
+                    
+                    if($('#zbookPageContainer').find(this).length){
+                        //console.log($(this).contents().find('html').get(0))
+                        loadIframeContentMode_1(this);
+                    }
+                    
+        
+                    $(this).contents().find('html').on('mouseover', function(event) {
+                            
+                        console.log(event.target);
+                        console.log('iframe html hover');
+                        
+                    });
         
                     /**
                      * Initialization                     
@@ -876,7 +957,7 @@
                             console.log(' iframe --> image clicked ');
                             
                             console.log(event.target);
-                            console.log(event.target.src);                                        
+                            console.log(event.target.src);                                                                                                                            
                             
                             addGenericDIV(event.target);
            
@@ -889,6 +970,48 @@
                 });  
 
 
+
+                function loadIframeContentMode_1(iframeElement){                    
+                    alert("start loading content <br>step-1 : clone iframe content <br>step-2 : set url's (image and libraries) <br>step-3 : load&&append libraries <br>step-4 : load&&append body to section ");                                        
+                    
+                    // STEP-1
+                    iframeCloneHtml = loadIframeContent_cloning(iframeElement);
+                    // STEP-2
+                    iframeCloneHtml = loadIframeContent_setUrls(iframeCloneHtml);
+                    
+
+                    // STEP-3
+
+                    // STEP-4
+                    $(loadIframeContent_getBodyChildren(iframeCloneHtml)).appendTo('.present');
+                    
+                }
+                
+                function loadIframeContent_cloning(iframeElement){
+                    return $(iframeElement).contents().find('html').clone(true).get(0);
+                }
+                function loadIframeContent_setUrls(iframeHtmlElement){
+                    
+                    // css ve scriptlerin direk .opf üzerinden load edilebilirliği araştırılacak
+                    console.log("Step-2 called");
+                    console.log(iframeHtmlElement);
+                                        
+                    localDirectory = 'localhost:8080/';
+                    packageOpfDirectort = 'epubTemp/OPS/';  // bu veri jsp içerisinde java kullanılarak alınacaktır.
+                    cssDirectory = localDirectory + packageOpfDirectort + 'css/recollections-of-wartime.css';
+                    
+                    console.log(cssDirectory);
+                    
+                    // set <link> tag
+                    // set <script> tag
+                    // set <img> tag
+                    
+                    return iframeHtmlElement;
+                }
+                function loadIframeContent_getBodyChildren(iframeCloneHtmlElement){                    
+                    return $(iframeCloneHtmlElement).find('body').children();                    
+                }
+
                 /******************************************************************************
                 ******************************* UTIL FUNCTIONS ********************************
                 ******************************************************************************/
@@ -897,28 +1020,87 @@
                     scriptNew = document.createElement('script');
                     scriptNew.src = '../../' + 'js/zb-handler.js';
                     $(scriptNew).appendTo($(iframeElem).contents().find('head').get(0)); 
+                    
+                    libs = ['../../js/jquery-1.9.1.js' ,
+                            '../../js/jquery-migrate-1.2.1.min.js',
+                            '../../js/jquery-ui-1.10.3.custom.js',
+                            '../../js/jwerty.js',                            
+                            '../../spectrum/spectrum.js',
+                            '../../js/contextMenu/jquery.contextMenu.js',
+                            '../../js/contextMenu/jquery.ui.position.js',
+                            '../../js/es-undoRedo.js',
+                            '../../js/es-selection.js',
+                            'https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAQkZ0hPQiLT4_efvb4IuskAk1neh3r8Fk&sensor=true&libraries=places',
+                            '../../js/es-init.js',
+                            '../../js/es-server.js',
+                            '../../js/es-text-modifications.js',
+                            '../../js/es-presentation.js',
+                            '../../js/es-image.js',
+                            '../../js/es-elements.js',
+                            '../../js/es-print.js',
+                            '../../lib/js/head.min.js',
+                            '../../js/html2canvas.js'];
+                        
+                        
+                    for(i=0; i<libs.length; i++){
+                        scriptNew = document.createElement('script');
+                        scriptNew.src = libs[i];
+//                        $(scriptNew).appendTo($(iframeElem).contents().find('head').get(0)); 
+                    }
                                         
                 }
                 
                 
+                
+                
+                /******************************************************************************
+                ******************************* UTIL FUNCTIONS ********************************
+                ******************************************************************************/
                 function addGenericDIV( elementToPutIn ) {
-                    var genDiv = document.createElement("div");
-                    genDiv.contentEditable = "false";
-                    genDiv.classList.add("boxContainer");
+                
+                // -- Element Create Operations -- 
+                    var genDiv = document.createElement('div');
+                    genDiv.contentEditable = 'false';
+                    //genDiv.className = 'boxContainer';
+                    //genDiv.tabIndex = "-1";
 
+                    $(genDiv).css({'padding':'15px' , 'margin':'15px'});
 
                     var removeElem = document.createElement("a");
                     removeElem.href = "#";
                     removeElem.className = "deleteIcon ui-icon-closethick";
                     genDiv.appendChild(removeElem);
                     
-                                                                                
+                // -- Generic div actions --
+                    $(genDiv).on('click', function(event) {
+                        selectText(event.target);                                          
+                    });                    
+                    $(genDiv).on('mouseover' , function(event){                        
+                        $(this).css({'background-color':'salmon'});
+                        console.log('genericDiv mouseover event');
+                    });  
+                    $(genDiv).on('mouseleave' , function(event){                        
+                        $(this).css({'background-color':'transparent'});
+                        console.log('genericDiv mouseleave event');
+                    });   
+                                        
+                                        
+                //  -- Append Operations --
                     $(genDiv).insertAfter(elementToPutIn);                                        
-                    $(elementToPutIn).appendTo(genDiv);                   
-
-//                   resizeAndDragHandler(imgDiv, true);
+                    $(elementToPutIn).appendTo(genDiv);                                          
+                    
+                    // draggable ve resizable handler şimdilik manual olarak yapılsın
+                    // ancak öncesinde jquery ve jqueryui kutuphanelerinin import edilmesi 
+                    // gerekmektedir.                                        
+                                   
+                    $(genDiv).draggable();
+                    $(genDiv).resizable();
+//                    resizeAndDragHandler(genDiv, true);
 
                }
+                   
+                   
+                   
                    
                 
                 
