@@ -770,134 +770,560 @@
 //
 //
 //               });
-            
-            
-            
-            
-                /******************************************************************************
-                ****************************** INITIALIZATION *********************************
-                ******************************************************************************/                                                          
-               
-//                document.write('<script src="jquery-1.9.1.js" type="text/javascript"></script>');                       
-//                document.write('<script src="jquery-migrate-1.2.1.min.js" type="text/javascript"></script>');
-//                document.write('<script src="jquery-ui-1.10.3.custom.js" type="text/javascript"></script>');
-//                document.write('<script src="jwerty.js" type="text/javascript"></script>');
-//                document.write('<script src="spectrum/spectrum.js" type="text/javascript"></script>');
-//                document.write('<script src="contextMenu/jquery.contextMenu.js" type="text/javascript"></script>');
-//                document.write('<script src="contextMenu/jquery.ui.position.js" type="text/javascript"></script>');        
-//
-//                // undo & redo handler            
-//                document.write('<script src="es-undoRedo.js" type="text/javascript"></script>');
-//                // text selection operation
-//                document.write('<script src="es-selection.js" type="text/javascript"></script>');
-//                // map library
-//                document.write('<script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAQkZ0hPQiLT4_efvb4IuskAk1neh3r8Fk&sensor=true&libraries=places" type="text/javascript"></script>');        
-//
-//                document.write('<script src="es-init.js" type="text/javascript"></script>');        
-//
-//                document.write('<script src="es-server.js" type="text/javascript"></script>');
-//                document.write('<script src="es-text-modifications.js" type="text/javascript"></script>');
-//                document.write('<script src="es-presentation.js" type="text/javascript"></script>');
-//                document.write('<script src="es-image.js" type="text/javascript"></script>');
-//                document.write('<script src="es-elements.js" type="text/javascript"></script>');
-//                document.write('<script src="es-print.js" type="text/javascript"></script>');
-//                document.write('<script src="js/head.min.js" type="text/javascript"></script>');
-//                document.write('<script src="html2canvas.js" type="text/javascript"></script>');
+                                                                
                 
+                activateDraggableEvent();                
                 
-                
-                function checkFocus() {
-                    console.log(document.activeElement.tagName);
-                    if(document.activeElement.tagName == 'IFRAME' || document.activeElement.tagName == 'iframe') {                        
-                        console.log('iframe has focus');
-                        
-                        
-//                        $(document.activeElement).contents().find('html').on('mouseover', function(event) {
-//                            
-//                            console.log(event.target);
-//                            console.log('iframe html hover');
-//                            
-//                        });
                                 
                                 
-                    } else {
-                        console.log('iframe not focused');
-                    }
-                }
-//                window.setInterval(checkFocus, 1000); 
-                
-                                                
+                $(document).on('click' , '#uplader' , function(){
+                            $('section.present').children().appendTo($('#myEditableDiv'))
+                });      
+                                                                                
     
                 /******************************************************************************
                 *********************************** CLICK *************************************
                 ******************************************************************************/
                 // Bu section amacı tıklanılan element'e div eklenerek istediğimiz hale getirmektir.
-                $(document).click(function( event ) {
-                                        
-                    console.log("Clicked element " + event.target.nodeName);                    
-                    console.log(event.target);
-                    
-                    if(event.target.nodeName=='IMG'){
-                        console.log("sss")
-                        $(event.target).attr('contenteditable' , 'true');
-                    }                                                                                                    
-                });                      
+                $(document).on('click' , '.present' , function( event ) {                                        
+
+                            if(event.target.nodeName=='IMG' && !formatChecker(event.target)){
+
+                                addGenericContainer( event.target );
+
+                            }else if(event.target.nodeName=='P' && !formatChecker(event.target)){
+
+                                $(event.target).attr('contenteditable' , 'true');
+                                addGenericContainerText( event.target );
+
+                            }else if(event.target.nodeName=='H1' && !formatChecker(event.target)){                        
+
+                                $(event.target).attr('contenteditable' , 'true');
+                                addGenericContainerText( event.target );
+
+
+                            }else{
+
+                                console.log("Clicked element " + event.target.nodeName);                    
+                                console.log(event.target);
+
+                            }   
+
+
+                });       
+                
+                
+            
+                $(document).on('click' , '.pageOverview_addPage' , function( event ){                                        
+
+
+                            workedPageNum = $('section.present').attr('pagenum');
+                            
+                            // edit edilen sayfanin overview'i bulunuyor ise ilgili yere ekle
+                            if($('.draggableIframeDIV[pagenum="' + workedPageNum + '"]').size()==1){
+                                                                
+                                $('.draggableIframeDIV[pagenum="' + workedPageNum + '"]').empty();
+                                edittedPage = $('section.present')
+                                edittedPage.removeClass('present').addClass('past');
+                                edittedPage.appendTo($('.draggableIframeDIV[pagenum="' + workedPageNum + '"]'));
+                                
+                            }
+
+                            
+                            newPage = createMainSection();
+                            $(newPage).appendTo($('#zbookPageContainer'));
+
+                            newPageOverview = $(newPage).clone();
+                            newPageOverview.removeClass('present').addClass('past');
+                            
+                            if($(this).attr('addtype') == 'next'){
+                                createOverviewPageDiv(newPageOverview , $(this).before().get(0))                                                                                                
+                            }else if( $(this).attr('addtype') == 'prev' ){                                                                
+                                createOverviewPageDiv(newPageOverview , $(this).parent().get(0))                               
+                            }
+
+                            activateDraggableEvent();
+                     
+                });                                
+                                         
                                          
                                          
                 /******************************************************************************
                 *********************************** DRAG-DROP *********************************
-                ******************************************************************************/                                
-                $('.operationDiv , .draggableIframeDIV').draggable({                     
-                    revert: function(event, ui) {                                                    
-                              
-                            // "http://devilmaycode.altervista.org/revert-a-jquery-draggable-object-back-to-its-original-container-on-out-event-of-d/" 
-                            // $(this).data("draggable")
-                            $(this).data('uiDraggable').originalPosition = {
-                                top : 0,
-                                left : 0
-                            };                            
-                            return true;
-                        }                   
-                });  
+                ******************************************************************************/ 
+                function activateDraggableEvent(){
+                    $('.operationDiv , .draggableIframeDIV , .draggableMainDIV').draggable({                     
+                                revert: function(event, ui) {                                                    
+
+                                        // "http://devilmaycode.altervista.org/revert-a-jquery-draggable-object-back-to-its-original-container-on-out-event-of-d/" 
+                                        // $(this).data("draggable")
+                                        $(this).data('uiDraggable').originalPosition = {
+                                            top : 0,
+                                            left : 0
+                                        };                            
+                                        return true;
+                                    },
+                    });
+                }
+                                                 
+                        
                 
                 $('#zbookPageContainer').droppable({                    
-                    drop: function( event, ui ) {                                                                                                                     
-                                                                                                                     
-                        if(ui.draggable.attr('id')==='addTextBox'){
+                            drop: function( event, ui ) {                                                                                                                     
+
+                                if(ui.draggable.attr('id')==='addTextBox'){
+
+                                    //$(this).get(0).appendChild(addTextBox());                            
+                                    addTextBox(event);
+
+                                }else if(ui.draggable.attr('id')==='addImageBox'){
+
+                                    imageAddingLocation = 'front';
+                                    $('#dialogAddImage').dialog('open');
+
+                                }else if(ui.draggable.attr('id')==='addVideoBox'){
+
+                                    $('#dialogAddVideo').dialog('open');
+
+                                }else if(ui.draggable.attr('id')==='addFigureBox'){
+
+                                    $('#dialogAddFigure').dialog('open');                                                        
+
+                                }else if(ui.draggable.attr('id')==='addDrawBox'){
+
+                                    $('#dialogAddCanvastoDraw').dialog('open');                             
+
+                                }else if(ui.draggable.attr('pagetype')=='origin'){                                                                        
+                                    
+                                    workedPageNum = $('section.present').attr('pagenum');
                             
-                            //$(this).get(0).appendChild(addTextBox());
-                            addTextBox(event);
-                            
-                        }else if(ui.draggable.attr('id')==='addImageBox'){
-                            
-                            imageAddingLocation = 'front';
-                            $('#dialogAddImage').dialog('open');
-                            
-                        }else if(ui.draggable.attr('id')==='addVideoBox'){
-                            
-                            $('#dialogAddVideo').dialog('open');
-                            
-                        }else if(ui.draggable.attr('id')==='addFigureBox'){
-                            
-                            $('#dialogAddFigure').dialog('open');                                                        
-                            
-                        }else if(ui.draggable.attr('id')==='addDrawBox'){
-                                                                       
-                            $('#dialogAddCanvastoDraw').dialog('open');                             
-                            
-                        }else if(ui.draggable.hasClass('draggableIframeDIV')){
-                                                                                                                            
-                            // iframe clone 'u alınır    
-                            iframeClone = ui.draggable.find('iframe').get(0);  
-                            loadIframeContentMode_1(iframeClone);
-                            
-//                            $(iframeClone).addClass('iframeEditMode');
-//                            $(iframeClone).clone(true).appendTo('.present');
-                        }                       
-                                                
-                    }
+                                    // edit edilen sayfanin overview'i bulunuyor ise ilgili yere ekle
+                                    if($('.draggableIframeDIV[pagenum="' + workedPageNum + '"]').size()==1){
+                                        $('section.present').appendTo($('.draggableIframeDIV[pagenum="' + workedPageNum + '"]'));
+                                        $('section.present').removeClass('present').addClass('past');
+                                    }else{                                                                
+                                        createOverviewPageDiv($('section.present').removeClass('present').addClass('past').get(0));                               
+                                    }
+                                    activateDraggableEvent();
+                                    
+                                                                                                            
+                                    $(ui.draggable.children().get(0)).removeClass('past').addClass('present');                                    
+                                    ui.draggable.children().appendTo($('#zbookPageContainer'));
+                                                                        
+                                    
+                                }else if(ui.draggable.hasClass('draggableIframeDIV')){
+
+                                    // iframe clone 'u alınır    
+                                    iframeClone = ui.draggable.find('iframe').get(0);  
+                                    loadIframeContentMode_1(iframeClone);
+
+                                }
+
+                            }
                 });
+                                                         
+                
+                
+                
+                
+                /******************************************************************************
+                ******************************* UTIL FUNCTIONS ********************************
+                ******************************************************************************/               
+                function createMainSection(){
+                            var newSection = document.createElement('section');
+                            newSection.className = 'present';                            
+                            $(newSection).css({ 
+                                'height' : '100%' , 
+                                'width' : '100%',
+                                'background' : '#EEE',
+                                'overflow' : 'auto'                                
+                            });                            
+                            $(newSection).attr('pagenum' , new Date().getTime());                            
+
+                            return newSection;
+                }
+               
+                function createOverviewPageDiv(elementToPutIn , pageLocation){                                                        
+                    
+                            var newPageOverviewMain = document.createElement('div');
+                            newPageOverviewMain.className = 'pageOverviewContainer'
+                                                                                    
+                            var newPageOverview_addPage = document.createElement('div');
+                            newPageOverview_addPage.className = 'pageOverview_addPage';
+                            $(newPageOverview_addPage).attr('addtype','prev');                                                        
+                        
+                            var newPageOverview = document.createElement('div');
+                            newPageOverview.className = 'draggableIframeDIV pageOverview';                            
+                            $(newPageOverview).attr('pagenum' , $(elementToPutIn).attr('pagenum'));
+                            $(newPageOverview).attr('pagetype' , 'origin');
+                            $(elementToPutIn).appendTo(newPageOverview); 
                             
+                            $(newPageOverview_addPage).appendTo(newPageOverviewMain);                            
+                            $(newPageOverview).appendTo(newPageOverviewMain);
+                                                        
+                            $(newPageOverviewMain).insertBefore(pageLocation);
+                }      
+               
+               
+                function addGenericContainer( elementToPutIn ) {                                                                        
+                
+                        // -- Element Create Operations -- 
+                            var genDiv = document.createElement('div');
+                            genDiv.contentEditable = 'false';
+                            genDiv.className = 'genericContainer';
+                            genDiv.tabIndex = "-1";                                        
+                            genDiv.width = $(elementToPutIn).width();
+                            genDiv.height = $(elementToPutIn).height();                                                              
+
+                            var removeElem = document.createElement("a");
+                            removeElem.href = "#";
+                            removeElem.className = "deleteIcon ui-icon-closethick";
+                            genDiv.appendChild(removeElem);                                        
+
+                        // -- Generic div actions --
+                            $(genDiv).on('click', function(event) {
+                                selectText(event.target);                                          
+                            });                    
+                            $(genDiv).on('mouseover' , function(event){                                
+                                console.log('genericDiv mouseover event');
+                            });  
+                            $(genDiv).on('mouseleave' , function(event){                                
+                                console.log('genericDiv mouseleave event');
+                            });   
+
+                        //  -- Append Operations --
+                            $(genDiv).insertAfter(elementToPutIn);                                                                                     
+                            $(elementToPutIn).appendTo(genDiv);                                 
+
+                            resizeAndDragHandler(genDiv, true);
+                }
+                
+                
+                function addGenericContainerText( elementToPutIn ) {
+                        // -- Element Create Operations -- 
+                            var genDiv = document.createElement('div');
+                            genDiv.contentEditable = 'false';
+                            genDiv.className = 'genericContainer';
+                            genDiv.tabIndex = "-1";
+                            genDiv.width = $(elementToPutIn).width();
+                            genDiv.height = $(elementToPutIn).height();                                
+                            $(genDiv).attr('isPlaceHolderNeed' , 'true');
+
+                            var innerDiv = document.createElement('div');
+                            innerDiv.classList.add("textBoxContainerInner");
+                            //innerDiv.contentEditable = "true";
+                            innerDiv.tabIndex = "-1";
+                            innerDiv.style.outline = "0";                    
+                            genDiv.appendChild(innerDiv);
+
+                            var removeElem = document.createElement("a");
+                            removeElem.href = "#";
+                            removeElem.className = "deleteIcon ui-icon-closethick";
+                            genDiv.appendChild(removeElem);
+
+                            var handleElem = document.createElement("a");
+                            handleElem.href = "#";
+                            handleElem.className = "handleIcon ui-icon-handle";
+                            genDiv.appendChild(handleElem);       
+
+                            $(genDiv).insertAfter(elementToPutIn);                  
+                            innerDiv.appendChild(elementToPutIn);
+
+
+                            if (!handleElem) {                            
+                                $(genDiv).draggable({
+                                    opacity: 0.5,
+                                    containment: $('#zbookPageContainer > section').get(0),
+                                    stop: function() {
+                                        console.log("resizeAndDragHandler --> new object ! .handle");                                    
+                                    }
+                                });
+                            }
+                            else {
+                                $(genDiv).draggable({
+                                    opacity: 0.5,
+                                    handle: handleElem,
+                                    containment: $('#zbookPageContainer > section').get(0),
+                                    start: function(){
+
+                                    },
+                                    stop: function() {
+                                        console.log("resizeAndDragHandler --> new object .handle");                                    
+                                    }
+                                });
+                            }    
+
+                            $(genDiv).resizable({                            
+                                containment: $('#zbookPageContainer > section').get(0),
+                                start: function(){                                                         
+
+                                },
+                                stop: function() {                              
+                                    $(genDiv).css("position", "absolute");                                
+                                }
+                            });
+
+
+                            $(genDiv).css({
+                                'top': 0, 
+                                'left': 0,                        
+                                'width': outerW+'px', 
+                                'height': outerH+'px', 
+                                'position': 'relative',
+        //                        'background-color': '#F00',
+        //                        'z-index': '10',
+                            });
+                            $(elementToPutIn).css({                        
+                                'top': '0px', 
+                                'left': '0px',  
+        //                        'position': 'relative',
+                            });                     
+                    
+                }
+                
+                
+                
+                function addGenericContainerTextX( elementToPutIn ) {                
+                        // -- Element Create Operations -- 
+                            var genDiv = document.createElement('div');
+                            genDiv.contentEditable = 'false';
+                            genDiv.className = 'boxContainerX genericContainer';
+                            genDiv.tabIndex = "-1";
+                            genDiv.width = $(elementToPutIn).width();
+                            genDiv.height = $(elementToPutIn).height();                                
+                            $(genDiv).attr('isPlaceHolderNeed' , 'true');
+
+                            topP = $(elementToPutIn).position().top;
+                            leftP = $(elementToPutIn).position().left;
+                            topOff = $(elementToPutIn).offset().top;
+                            leftOff = $(elementToPutIn).offset().left;
+                            outerH = $(elementToPutIn).outerHeight(true);
+                            outerW = $(elementToPutIn).outerWidth(true);                    
+
+                            var innerDiv = document.createElement('div');
+                            innerDiv.classList.add("textBoxContainerInner");
+                            //innerDiv.contentEditable = "true";
+                            innerDiv.tabIndex = "-1";
+                            innerDiv.style.outline = "0";                    
+                            genDiv.appendChild(innerDiv);
+
+                            var removeElem = document.createElement("a");
+                            removeElem.href = "#";
+                            removeElem.className = "deleteIcon ui-icon-closethick";
+                            genDiv.appendChild(removeElem);
+
+                            var handleElem = document.createElement("a");
+                            handleElem.href = "#";
+                            handleElem.className = "handleIcon ui-icon-handle";
+                            genDiv.appendChild(handleElem);                     
+
+
+                        // -- Placeholders --     
+                            if(false){
+
+                                var placeHolderDiv = document.createElement('div');
+                                placeHolderDiv.className = 'placeHolder';
+                                $(placeHolderDiv).css({
+                                    'width': outerW, 
+                                    'height': outerH,
+                                    'position' : 'relative',
+                                    'background-color' : '#0F0', 
+                                });
+                                $(placeHolderDiv).insertBefore(elementToPutIn);
+
+                            }
+
+                        // -- Generic div actions --           
+                            $(genDiv).on('click', function(event) {
+        //                        selectText(event.target);                                          
+                            });        
+
+                        //  -- Append Operations --                    
+                            $(genDiv).insertAfter(elementToPutIn);                  
+                            innerDiv.appendChild(elementToPutIn);                   
+
+                        //  -- Location Operations --
+                            // Location of element is (topOff,leftOff)
+                            // Location of section is ()
+
+
+
+                        //  -- Additional Changes --  
+                            console.log($(elementToPutIn).offset())
+                            console.log($(elementToPutIn).position())
+                            console.log('Position values of genDiv are :: ');
+                            console.log($(genDiv).offset())
+                            console.log($(genDiv).position())
+                            $(genDiv).css({
+        //                        'top': topP+'px', 
+        //                        'left': leftP+'px',                        
+        //                        'width': outerW+'px', 
+        //                        'height': outerH+'px', 
+        //                        'position': 'relative',
+        //                        'background-color': '#F00',
+        //                        'z-index': '10',
+                            });
+                            $(elementToPutIn).css({                        
+        //                        'top': '0px', 
+        //                        'left': '0px',  
+        //                        'position': 'relative',
+                            });  
+
+
+                            genericResizeAndDragHandler(genDiv, true , handleElem);
+
+                }
+                
+                /*
+                *  image'lerin kaybolan resize & draggable eventleri tekrar aktif eder
+                */
+                function genericResizeAndDragHandler(imgDiv, newCreated, handleElem) {
+                            //image yeni upload edildi ise
+                            if (newCreated) {                                               
+
+                                if (!handleElem) {                            
+                                    $(imgDiv).draggable({
+                                        opacity: 0.5,
+                                        containment: $('#zbookPageContainer > section').get(0),
+                                        stop: function() {
+                                            console.log("resizeAndDragHandler --> new object ! .handle");                                    
+                                        }
+                                    });
+                                }
+                                else {
+                                    $(imgDiv).draggable({
+                                        opacity: 0.5,
+                                        handle: handleElem,
+                                        containment: $('#zbookPageContainer > section').get(0),
+                                        start: function(){
+
+                                        },
+                                        stop: function() {
+                                            console.log("resizeAndDragHandler --> new object .handle");                                    
+                                        }
+                                    });
+                                }            
+
+                                $(imgDiv).resizable({                            
+                                    containment: $('#zbookPageContainer > section').get(0),
+                                    start: function(){
+
+                                        // -placeHolder process- ( - IPTAL SUAN ICIN - )
+                                        /* 
+                                         * buradaki işlemin amacı, secilen element'e genericContainer verilmesi durumunda
+                                         * ve element yani genericContaiber resize edilmesi durumunda, source element'in
+                                         * kendi alanını kaybetmesini engellemek için aynı alana placeHolder adında başka
+                                         * bir element'in konulmasıdır.
+                                         * 
+                                         * Bu işlem her resize edildiğinde tekrarlanmaması için resize element'in attribute
+                                         * olan 'isPlaceHolderNeed' false durumuna çekilir.
+                                         * 
+                                         */         
+
+                                        if($(this).attr('isPlaceHolderNeed')=='true'){   
+
+                                            var placeHolderDiv = document.createElement('div');
+                                            placeHolderDiv.className = 'placeHolder';
+                                            $(placeHolderDiv).css({
+                                                'width': outerW, 
+                                                'height': outerH,
+                                                'position' : 'relative',
+                                                'background-color' : '#0F0', 
+                                            });
+                                            $(placeHolderDiv).insertBefore(this);     
+
+                                            $(this).attr('isPlaceHolderNeed' , 'false');
+                                        }
+                                        // -**endof** placeHolder process-                                
+
+                                    },
+                                    stop: function() {                              
+                                        $(imgDiv).css("position", "absolute");                                
+                                    }
+                                });
+
+                            } else {                                              
+
+                                console.log("resizeAndDragHandler --> existed object called");
+
+                                //burada tüm image'lerin section parent'ları bulunur ve her biri tekrardan draggable hale getirilir
+                                imgDiv = $(".boxContainer");
+                                //image resize edildi ise
+                                $($(".boxContainer > .ui-resizable-handle")).remove();
+                                for (var n = 0; n < imgDiv.length; n++) {
+
+                                    // her image'in kendi section'ları bulunur
+                                    var imgSection = $(imgDiv[n]).parentsUntil("#sectionContainer")[0];
+
+                                    //image resize event reload
+                                    $(imgDiv[n]).resizable({
+                                        containment: imgSection,
+                                        stop: function() {
+                                            $(imgDiv[n]).css("position", "inherit");
+                                            pushToStack();
+                                        }
+                                    });
+
+                                    //image drag event reload
+                                    if ($(imgDiv[n]).find(".handleIcon").size() > 0) {//handle ikonu varsa
+                                        $(imgDiv[n]).draggable({
+                                            opacity: 0.5,
+                                            handle: $(imgDiv[n]).find(".handleIcon")[0],
+                                            containment: imgSection,
+                                            stop: function() {
+                                                console.log("resizeAndDragHandler --> existed object .handle")
+                                                pushToStack();
+                                            }
+                                        });
+                                    } else {
+                                        $(imgDiv[n]).draggable({
+                                            opacity: 0.5,
+                                            containment: imgSection,
+                                            stop: function() {
+                                                console.log("resizeAndDragHandler --> existed object not .handle")
+                                                pushToStack();
+                                            }
+                                        });
+                                        $(imgDiv[n]).on("click", function(event) {
+                                            selectText(event.target);
+                                        });
+                                    }
+                                }
+                            }
+                }
+                
+                
+                
+                
+                
+                /******************************************************************************
+                ****************************** CHECKER FUNCTIONS *****************************
+                ******************************************************************************/
+                
+                /**
+                 * @description This function will be used after one element selected for editting.
+                 *              Before start editting , function will check selected OR clicked element
+                 *              ready for action. 
+                 *              
+                 *              For example, if <img> selected then its parent have to include ".genericDiv"
+                 *              class.If ".generic" class exist then nothing will be done for preperation because
+                 *              selected <img> element already ready for action.
+                 *              
+                 * @returns {undefined}
+                 */
+                function formatChecker(selectedElement){                                                                                                                       
+                    
+                    // şimdilik sadece boxContainer bulunuyormu diye kontrol etmekte
+                    return $(selectedElement).parents('.genericContainer').length > 0 ? true : false;
+                    
+                }
+                                   
+                                   
+                                   
+                                   
+                                   
+                                   
+                                   
                 /******************************************************************************
                 *********************************** IFRAME ************************************
                 ******************************************************************************/
@@ -905,18 +1331,14 @@
                 // aşağıda comment alınmış alan document'in kendi iframe 'leri için geçerlidir. Edit edilebilir alana taşınması durumu için geçerli değildir.
                 // ---
                  
-                $('iframe').contents().find('html').on('mouseover', function(event) {
-                            
+                $('iframe').contents().find('html').on('mouseover', function(event) {                            
                         console.log(event.target);
                         console.log('iframe html hover');
-
                     });
-                    
-                    
+                                        
                     
                 $('iframe').load(function(){  
-                    
-                    
+                                        
                     /**
                      * Iframe load edilme "zbookPageContainer" içerisinde ise loadIframeContentMode_1() kullanılır
                      */
@@ -935,14 +1357,7 @@
                         console.log(event.target);
                         console.log('iframe html hover');
                         
-                    });
-        
-                    /**
-                     * Initialization                     
-                     */
-                    if($(this).hasClass('iframeEditMode')){                     // iframe edittable alana load olması durumunda gerekli link ve script'ler import edilir.
-                        importFilesToIframe(this);
-                    }
+                    });                            
                     
                     /**
                      * Events 
@@ -983,7 +1398,7 @@
                     // STEP-3
 
                     // STEP-4
-                    $(loadIframeContent_getBodyChildren(iframeCloneHtml)).appendTo('.present');
+                    $(loadIframeContent_getBodyChildren(iframeCloneHtml)).appendTo('.present');                                        
                     
                 }
                 
@@ -993,118 +1408,35 @@
                 function loadIframeContent_setUrls(iframeHtmlElement){
                     
                     // css ve scriptlerin direk .opf üzerinden load edilebilirliği araştırılacak
-                    console.log("Step-2 called");
+                    console.log("Step-2 called && Input element is ...");
                     console.log(iframeHtmlElement);
                                         
-                    localDirectory = 'localhost:8080/';
-                    packageOpfDirectort = 'epubTemp/OPS/';  // bu veri jsp içerisinde java kullanılarak alınacaktır.
-                    cssDirectory = localDirectory + packageOpfDirectort + 'css/recollections-of-wartime.css';
+                    localDirectory = 'http://localhost:8080/';
+                    packageOpfDirectort = 'epubTemp/OPS/';  
+                    baseDirectory = localDirectory + packageOpfDirectort;                       // bu veri jsp içerisinde java kullanılarak alınacaktır.
                     
-                    console.log(cssDirectory);
-                    
-                    // set <link> tag
-                    // set <script> tag
-                    // set <img> tag
+                    cssDirectory = baseDirectory + 'css/recollections-of-wartime.css';          // bu veri ise yine java kullanılarak packaage.opf içerisinden alınıp document e implement edilecektir. (load esnasında)                                                            
                     
                     return iframeHtmlElement;
                 }
                 function loadIframeContent_getBodyChildren(iframeCloneHtmlElement){                    
                     return $(iframeCloneHtmlElement).find('body').children();                    
-                }
-
+                }  
+                
+                
+                
+                
+                
                 /******************************************************************************
-                ******************************* UTIL FUNCTIONS ********************************
+                *********************************** FOCUS *************************************
                 ******************************************************************************/
-                function importFilesToIframe(iframeElem){                                        
-                    
-                    scriptNew = document.createElement('script');
-                    scriptNew.src = '../../' + 'js/zb-handler.js';
-                    $(scriptNew).appendTo($(iframeElem).contents().find('head').get(0)); 
-                    
-                    libs = ['../../js/jquery-1.9.1.js' ,
-                            '../../js/jquery-migrate-1.2.1.min.js',
-                            '../../js/jquery-ui-1.10.3.custom.js',
-                            '../../js/jwerty.js',                            
-                            '../../spectrum/spectrum.js',
-                            '../../js/contextMenu/jquery.contextMenu.js',
-                            '../../js/contextMenu/jquery.ui.position.js',
-                            '../../js/es-undoRedo.js',
-                            '../../js/es-selection.js',
-                            'https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAQkZ0hPQiLT4_efvb4IuskAk1neh3r8Fk&sensor=true&libraries=places',
-                            '../../js/es-init.js',
-                            '../../js/es-server.js',
-                            '../../js/es-text-modifications.js',
-                            '../../js/es-presentation.js',
-                            '../../js/es-image.js',
-                            '../../js/es-elements.js',
-                            '../../js/es-print.js',
-                            '../../lib/js/head.min.js',
-                            '../../js/html2canvas.js'];
-                        
-                        
-                    for(i=0; i<libs.length; i++){
-                        scriptNew = document.createElement('script');
-                        scriptNew.src = libs[i];
-//                        $(scriptNew).appendTo($(iframeElem).contents().find('head').get(0)); 
+                function checkFocus() {
+                    console.log("Active element is ...");
+                    console.log(document.activeElement);
+                    if(document.activeElement.tagName == 'IFRAME' || document.activeElement.tagName == 'iframe') {                        
+                        console.log('iframe has focus');                        
+                    } else {
+                        console.log('iframe not focused');
                     }
-                                        
                 }
-                
-                
-                
-                
-                /******************************************************************************
-                ******************************* UTIL FUNCTIONS ********************************
-                ******************************************************************************/
-                function addGenericDIV( elementToPutIn ) {
-                
-                // -- Element Create Operations -- 
-                    var genDiv = document.createElement('div');
-                    genDiv.contentEditable = 'false';
-                    //genDiv.className = 'boxContainer';
-                    //genDiv.tabIndex = "-1";
-
-                    $(genDiv).css({'padding':'15px' , 'margin':'15px'});
-
-                    var removeElem = document.createElement("a");
-                    removeElem.href = "#";
-                    removeElem.className = "deleteIcon ui-icon-closethick";
-                    genDiv.appendChild(removeElem);
-                    
-                // -- Generic div actions --
-                    $(genDiv).on('click', function(event) {
-                        selectText(event.target);                                          
-                    });                    
-                    $(genDiv).on('mouseover' , function(event){                        
-                        $(this).css({'background-color':'salmon'});
-                        console.log('genericDiv mouseover event');
-                    });  
-                    $(genDiv).on('mouseleave' , function(event){                        
-                        $(this).css({'background-color':'transparent'});
-                        console.log('genericDiv mouseleave event');
-                    });   
-                                        
-                                        
-                //  -- Append Operations --
-                    $(genDiv).insertAfter(elementToPutIn);                                        
-                    $(elementToPutIn).appendTo(genDiv);                                          
-                    
-                    // draggable ve resizable handler şimdilik manual olarak yapılsın
-                    // ancak öncesinde jquery ve jqueryui kutuphanelerinin import edilmesi 
-                    // gerekmektedir.                                        
-                                   
-                    $(genDiv).draggable();
-                    $(genDiv).resizable();
-//                    resizeAndDragHandler(genDiv, true);
-
-               }
-                   
-                   
-                   
-                   
-                
-//                $('img').load(function(event){
-//                    console.log("deneme")
-//                    console.log(event.target);
-//                })
-                
+//                window.setInterval(checkFocus, 1000); 

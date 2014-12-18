@@ -48,8 +48,12 @@ body{font-size:12px;color:#666;font-family:"Arial", Helvetica, Tahoma;margin: 0;
 #tabsFigures{min-height: 228px; overflow: auto;}
 #ulMainMenu li a{border: 1px solid transparent; margin: 0 !important;}
 #ulMainMenu li a.ui-state-focus{border: 1px solid #ffa300; margin: 0 !important;}
-.boxContainer{position: inherit; top: 10px; left: 10px; box-shadow: 3px 3px 10px rgba(0,0,0,0.2); height: 30%; width: 30%; overflow:visible;}
-.boxContainer .deleteIcon { display:none;position:absolute !important;top:1%;right:1%;width:20px;height:20px;background-image: url("eba-sunum-theme/images/ui-icons_cd0a0a_256x240.png"); z-index: 90;}
+
+.boxContainer{position: inherit; overflow:visible;}
+
+.boxContainer:hover{box-shadow: 3px 3px 10px rgba(0,0,0,0.2);}
+/*.boxContainer{position: relative; height: 30%; width: 30%; overflow:visible;}*/
+.boxContainer .deleteIcon{ display:none;position:absolute !important;top:1%;right:1%;width:20px;height:20px;background-image: url("eba-sunum-theme/images/ui-icons_cd0a0a_256x240.png"); z-index: 90;}
 .boxContainer:hover a.deleteIcon { display:block; }
 .boxContainer div.ui-resizable-handle { display:none !important; }
 .boxContainer:hover div.ui-resizable-handle { display:block !important; }

@@ -1,0 +1,16 @@
+
+
+.genericContainer:hover{box-shadow: 3px 3px 10px rgba(0,0,0,0.2);}
+.genericContainer .deleteIcon{ display:none;position:absolute !important;top:1%;right:1%;width:20px;height:20px;background-image: url("eba-sunum-theme/images/ui-icons_cd0a0a_256x240.png"); z-index: 90;}
+.genericContainer:hover a.deleteIcon { display:block; }
+.genericContainer div.ui-resizable-handle { display:none !important; }
+.genericContainer:hover div.ui-resizable-handle { display:block !important; }
+.genericContainer .handleIcon { display:none; position:absolute !important;top:0;width:100%;height:24px;background-image: url("eba-sunum-theme/images/boxHeader.png");}
+.genericContainer:hover a.handleIcon { display:block; }
+.genericContainer::selection{background: transparent;}
+.genericContainer::-moz-selection{background: transparent;}
+
+
+.genericContainer img{border-width: 1px !important;}
+.genericContainer img::selection{background: #E0EDFF;}
+.genericContainer img::-moz-selection{background: #E0EDFF;}

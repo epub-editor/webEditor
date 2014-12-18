@@ -55,6 +55,12 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\"/>\r\n");
       out.write("            \r\n");
       out.write("            <title>EBA Sunum</title>\r\n");
+      out.write("            \r\n");
+      out.write("            <!-- Burada iframe'in css'leri import edilir. Import edilme işlemi -->\r\n");
+      out.write("            <style>                \r\n");
+      out.write("                @import url('http://localhost:8080/epubTemp/OPS/css/recollections-of-wartime.css');\r\n");
+      out.write("            </style>\r\n");
+      out.write("            \r\n");
       out.write("            <link href=\"css/eba-sunum-theme/images/favicon.ico\" rel=\"shortcut icon\" type=\"image/x-icon\" />            \r\n");
       out.write("            <link rel=\"stylesheet\" href=\"css/theme/default.css\" id=\"theme\"/>\r\n");
       out.write("            <link rel=\"stylesheet\" type=\"text/css\" href=\"css/style.css\"/>\r\n");
@@ -69,7 +75,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            \r\n");
       out.write("            <!--<link rel=\"stylesheet\" href=\"css/reveal.css\"/>-->\r\n");
       out.write("            \r\n");
-      out.write("        <style>\r\n");
+      out.write("        <style>            \r\n");
       out.write("            .edittablePage{\r\n");
       out.write("                position:fixed;\r\n");
       out.write("                top: 25%;                    \r\n");
@@ -96,6 +102,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                height:600px;                                 \r\n");
       out.write("                background-color: #f3f3f3;                \r\n");
       out.write("            }\r\n");
+      out.write("                        \r\n");
       out.write("        </style>             \r\n");
       out.write("                        \r\n");
       out.write("    </head>\r\n");
@@ -722,8 +729,8 @@ for(int i=1; i<5; i++){
       out.write("\r\n");
       out.write("                    <div id=\"zbookPageContainer\" class=\"edittablePagex\" style=\"float:right; height: 500px; width: 80%; background: #EEE\">\r\n");
       out.write("\r\n");
-      out.write("                        <section class=\"present\" style=\"height: 100%; width: 100%; background: #EEE\">                            \r\n");
-      out.write("                            \r\n");
+      out.write("                        <section class=\"present\" style=\"height: 100%; width: 100%; background: #EEE\">                                                        \r\n");
+      out.write("                                \r\n");
       out.write("                        </section>\r\n");
       out.write("\r\n");
       out.write("                    </div>\r\n");

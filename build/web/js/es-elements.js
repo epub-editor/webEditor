@@ -105,8 +105,8 @@
                    imgDiv.appendChild(removeElem);
                    imgDiv.appendChild(handleElem);
                    $(".present").get(0).appendChild(imgDiv);
-
-                    resizeAndDragHandler(imgDiv, true, handleElem);
+                                      
+                   resizeAndDragHandler(imgDiv, true, handleElem);
                }
 
                function initCanvasForDrawing(container, width, height, fillColor) {

@@ -15,7 +15,17 @@
             
             <!-- Burada iframe'in css'leri import edilir. Import edilme işlemi -->
             <style>                
+                
                 @import url('http://localhost:8080/epubTemp/OPS/css/recollections-of-wartime.css');
+                @import url('http://localhost:8080/epubTemp/OPS/fonts/URWClassico-Bol.woff');
+                @import url('http://localhost:8080/epubTemp/OPS/fonts/URWClassico-BolIta.woff');
+                @import url('http://localhost:8080/epubTemp/OPS/fonts/URWClassico-Ita.woff');
+                @import url('http://localhost:8080/epubTemp/OPS/fonts/URWClassico-Reg.woff');
+                @import url('http://localhost:8080/epubTemp/OPS/fonts/URWPalladioL-Bold.woff');
+                @import url('http://localhost:8080/epubTemp/OPS/fonts/URWPalladioL-BoldItal.woff');
+                @import url('http://localhost:8080/epubTemp/OPS/fonts/URWPalladioL-Ital.woff');
+                @import url('http://localhost:8080/epubTemp/OPS/fonts/URWPalladioL-Roma.woff');                
+                
             </style>
             
             <link href="css/eba-sunum-theme/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />            
@@ -672,7 +682,7 @@
 
                     <div id="zbookPageContainer" class="edittablePagex" style="float:right; height: 500px; width: 80%; background: #EEE">
 
-                        <section class="present" style="height: 100%; width: 100%; background: #EEE">                                                        
+                        <section class="present" style="height: 100%; width: 100%; background: #EEE; overflow: auto;">                                                        
                                 
                         </section>
 

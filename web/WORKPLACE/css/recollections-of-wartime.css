@@ -1,0 +1,215 @@
+/*DESIGN PROFILE - Default */
+/* Copyright 2013 Infogrid Pacific Pte. Ltd. All rights reserved. */
+/* Profile Name: CSS Minification */
+/* Created By: Infogrid Pacific */
+/* Creation Date: 2013-09-16 */
+/* Modified By: Infogrid Pacific */
+@font-face { font-family: "Galley"; font-weight: 700; font-style: italic; font-stretch: normal; font-variant: normal; src: url("../fonts/URWPalladioL-BoldItal.woff"); }
+@font-face { font-family: "Galley"; font-weight: 400; font-style: normal; font-stretch: normal; font-variant: normal; src: url("../fonts/URWPalladioL-Roma.woff"); }
+@font-face { font-family: "Galley"; font-weight: 400; font-style: italic; font-stretch: normal; font-variant: normal; src: url("../fonts/URWPalladioL-Ital.woff"); }
+@font-face { font-family: "Galley"; font-weight: 700; font-style: normal; font-stretch: normal; font-variant: normal; src: url("../fonts/URWPalladioL-Bold.woff"); }
+@font-face { font-family: "BookTitlePage"; font-weight: 700; font-style: italic; font-stretch: normal; font-variant: normal; src: url("../fonts/URWPalladioL-BoldItal.woff"); }
+@font-face { font-family: "BookTitlePage"; font-weight: 400; font-style: normal; font-stretch: normal; font-variant: normal; src: url("../fonts/URWPalladioL-Roma.woff"); }
+@font-face { font-family: "BookTitlePage"; font-weight: 400; font-style: italic; font-stretch: normal; font-variant: normal; src: url("../fonts/URWPalladioL-Ital.woff"); }
+@font-face { font-family: "BookTitlePage"; font-weight: 700; font-style: normal; font-stretch: normal; font-variant: normal; src: url("../fonts/URWPalladioL-Bold.woff"); }
+@font-face { font-family: "TitleBlock"; font-weight: 700; font-style: italic; font-stretch: normal; font-variant: normal; src: url("../fonts/URWPalladioL-BoldItal.woff"); }
+@font-face { font-family: "TitleBlock"; font-weight: 400; font-style: normal; font-stretch: normal; font-variant: normal; src: url("../fonts/URWPalladioL-Roma.woff"); }
+@font-face { font-family: "TitleBlock"; font-weight: 400; font-style: italic; font-stretch: normal; font-variant: normal; src: url("../fonts/URWPalladioL-Ital.woff"); }
+@font-face { font-family: "TitleBlock"; font-weight: 700; font-style: normal; font-stretch: normal; font-variant: normal; src: url("../fonts/URWPalladioL-Bold.woff"); }
+@font-face { font-family: "Heading"; font-weight: 700; font-style: italic; font-stretch: normal; font-variant: normal; src: url("../fonts/URWPalladioL-BoldItal.woff"); }
+@font-face { font-family: "Heading"; font-weight: 400; font-style: normal; font-stretch: normal; font-variant: normal; src: url("../fonts/URWPalladioL-Roma.woff"); }
+@font-face { font-family: "Heading"; font-weight: 400; font-style: italic; font-stretch: normal; font-variant: normal; src: url("../fonts/URWPalladioL-Ital.woff"); }
+@font-face { font-family: "Heading"; font-weight: 700; font-style: normal; font-stretch: normal; font-variant: normal; src: url("../fonts/URWPalladioL-Bold.woff"); }
+@font-face { font-family: "TextBlocks"; font-weight: 400; font-style: normal; font-stretch: normal; font-variant: normal; src: url("../fonts/URWClassico-Reg.woff"); }
+@font-face { font-family: "TextBlocks"; font-weight: 400; font-style: italic; font-stretch: normal; font-variant: normal; src: url("../fonts/URWClassico-Ita.woff"); }
+@font-face { font-family: "TextBlocks"; font-weight: 700; font-style: normal; font-stretch: normal; font-variant: normal; src: url("../fonts/URWClassico-Bol.woff"); }
+@font-face { font-family: "TextBlocks"; font-weight: 700; font-style: italic; font-stretch: normal; font-variant: normal; src: url("../fonts/URWClassico-BolIta.woff"); }
+p.authornote-rw { font-family: AuthorNote, NamedPara, Galley; }
+p.caption-rw { font-family: Caption, NamedPara, Galley; }
+p.source-rw { font-family: Source, NamedPara, Galley; }
+.frontmatter-rw .title-block-rw .title-num-rw { font-family: FrontmatterTitleNumber, FrontmatterTitleBlock, TitleBlock, Galley; }
+div.general-rw { font-family: General, TextBlock, Galley; }
+body, section, div, table, thead, tbody, tfoot, th, td, p, pre, ul, ol, dl, dt, dd, li, span, nav, header, footer { margin: 0; padding: 0; }
+body { margin: 0; padding: 0; }
+div, section { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -o-box-sizing: border-box; box-sizing: border-box; }
+#Copyright1{ background-color: white; }
+.copyright-rw {font-size: 1em; padding-right: 1em; padding-top: 1em; font-family: Copyright, TextBlock, Galley; line-height: 1.2em; padding-left: 1em; }
+.copyright-rw p { text-align: left; text-indent: 0; margin-bottom: 0; padding-bottom: 1em; }
+.frontmatter-rw, .Chapter-rw, .Part-rw, .backmatter-rw { background-color: rgb(255, 255, 255); }
+.Section-rw { position: relative; width: 1366px; height: 768px; background-color: rgba(200, 200, 240, 1); background-image: url("../images/wellington_background_online.jpg"); background-size: cover; }
+#Copyright1, #Dedication1, #Frontispiece1 { background-color: rgb(255, 255, 255); width: 683px; height: 768px; }
+#Cover1 { position: relative; width: 1366px; height: 768px; background-image: url("../images/row_cover_online.jpg"); background-size: cover; }
+#Cover1 #igp-logo { width: 260px; height: 46px; background-image: url("../images/infogridpacificlogowhite_online.png"); margin: 0 auto 10px auto; background-repeat: no-repeat; background-position: center center; -moz-background-size: contain; -webkit-background-size: contain; background-size: contain; }
+#Part1 { position: relative; width: 800px; height: 768px; background-color: rgb(255, 255, 255); padding: 0 50px 0 50px; }
+#Cover1 h1 { font-size: 60px; text-align: center; color: white; text-shadow:2px 2px 2px rgb(0, 0, 0); margin: 0; padding: 40px 0 30px 0; }
+#Cover1 .title-sub-rw { font-size: 40px; line-height: 50px; text-align: center; text-indent: 0; color: white; text-shadow:2px 2px 3px rgb(0, 0, 0); padding: 0 0 0 0; }
+#Cover1 .title-author-rw { position: absolute; top: 400px; left: 0; right: 0; font-size: 60px; text-align: center; text-indent: 0; color: white; text-shadow:5px 5px 3px rgb(0, 0, 0); padding: 0 0 0 0; }
+#Cover1 .title-contributor-rw { position: absolute; top: 470px; left: 0; right: 0; font-size: 40px; text-align: center; text-indent: 0; color: white; text-shadow:5px 5px 3px rgb(0, 0, 0); padding: 0 0 0 0; }
+#Cover1 .imprint-rw { font-family: sans-serif; font-weight: bold; position: absolute; bottom: 20px; left: 0; right: 0; font-size: 20px; text-align: center; color: white; text-shadow:5px 5px 10px rgb(0, 0, 0); padding: 40px 0 0 0; }
+#ImageGallery { width: 1366px; height: 768px; }
+#ImageGallery .col-4-rw { padding: 1em; }
+#ImageGallery .figure-rw img { box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.7); }
+.galley-rw {word-spacing: 0; font-size: 1.0em; font-weight: normal; text-align: justify; font-family: Galley; letter-spacing: 0; line-height: 1.3em; }
+p { text-indent: 0; margin-bottom: 0.5em; }
+p+p { text-indent: 0; }
+.align-center-rw { text-align: center; text-indent: 0; }
+.align-right-rw { text-align: right; }
+.blank-line-rw { height: 1em; }
+.firstpara-rw { text-indent: 0; }
+.authornote-rw { font-style: italic; }
+.caption-rw { font-size: inherit; font-style: italic; line-height: inherit; text-indent: 0; margin-top: 0.25em; margin-bottom: 0; }
+p.dedication-rw {text-align: center; margin-top: 1em; font-family: Dedication, NamedPara, Galley; text-indent: 0; margin-right: 1em; }
+.source-rw { font-style: italic; }
+.bodytext8-rw {color: rgb(240, 50, 50); font-family: Bodytext8, Galley; margin: 0.5em 0 0.5em 0; }
+div+p { text-indent: 0; }
+p.blank-line-rw+p { text-indent: 0; }
+h2+p { text-indent: 0; }
+h4+p { text-indent: 0; }
+.block-rw p:first-child { text-indent: 0; }
+.layout-rw p:first-child { text-indent: 0; }
+.paras-rw p:first-child { text-indent: 0; }
+.media-rw p:first-child { text-indent: 0; }
+div.blank-line-rw { height: 1em; text-align: center; margin: 0; }
+a:link { color: rgb(0, 100, 150); text-decoration: none; }
+a:visited { color: rgb(0, 100, 150); }
+a:hover { color: rgb(0, 100, 150); text-decoration: underline; }
+a:active { color: rgb(0, 100, 150); }
+.style8-rw { font-size: 0.8em; }
+.galley-rw h2 {font-size: 1em; line-height: 1em; color: rgb(0, 0, 0); margin-top: 2em; margin-bottom: 1em; page-break-after: avoid; font-weight: normal; text-transform: uppercase; font-style: normal; text-align: left; }
+.galley-rw h4 {font-size: 1em; line-height: 1em; color: rgb(0, 0, 0); margin-top: 1.5em; margin-bottom: 0.5em; page-break-after: avoid; font-weight: bold; text-transform: none; font-style: italic; text-align: left; }
+.galley-rw h2+div { margin-top: 0; }
+.galley-rw h4+div { margin-top: 0; }
+h2 {hyphens: none; font-family: Heading2, Heading, Galley; -webkit-hyphens: none; -moz-hyphens: none; -o-hyphens: none; }
+h4 {hyphens: none; font-family: Heading4, Heading, Galley; -webkit-hyphens: none; -moz-hyphens: none; -o-hyphens: none; }
+.specials-rw .title-block-rw { text-align: center; }
+.Part-rw .title-block-rw p { text-indent: 0; }
+.Chapter-rw .title-block-rw p { text-indent: 0; }
+.frontmatter-rw .title-block-rw p { text-indent: 0; }
+.backmatter-rw .title-block-rw p { text-indent: 0; }
+.specials-rw .title-block-rw p { text-indent: 0; }
+.Section-rw .title-block-rw p { text-indent: 0; }
+.frontmatter-rw .title-block-rw {padding-right: 1em; margin-bottom: 1em; padding-bottom: 0em; padding-top: 2em; font-family: FrontmatterTitleBlock, TitleBlock, Galley; padding-left: 1em; text-align: center; }
+.frontmatter-rw .title-block-rw h1 {font-size: 2em; font-weight: normal; color: rgb(0, 0, 0); font-family: FrontmatterTitle, TitleBlock, Galley; line-height: 1em; text-align: inherit; }
+.frontmatter-rw .title-block-rw .title-sub-rw {font-size: 1.5em; font-family: FrontmatterTitleSubTitle, FrontmatterTitleBlock, TitleBlock, Galley; line-height: 1em; text-align: inherit; }
+.frontmatter-rw .title-block-rw .title-author-rw {line-height: 1em; font-family: FrontmatterTitleAuthor, FrontmatterTitleBlock, TitleBlock, Galley; font-style: italic; text-align: inherit; }
+.frontmatter-rw .title-block-rw .title-contributor-rw {line-height: 1em; font-family: FrontmatterTitleContributor, FrontmatterTitleBlock, TitleBlock, Galley; font-style: italic; text-align: inherit; }
+.frontmatter-rw .title-block-rw .title-other-rw {font-size: 1em; font-family: FrontmatterTitleOther, FrontmatterTitleBlock, TitleBlock, Galley; text-align: inherit; }
+.Part-rw .title-block-rw {padding-right: 1em; margin-bottom: 1em; padding-bottom: 0em; padding-top: 2em; font-family: PartTitleBlock, TitleBlock, Galley, sans-serif; padding-left: 1em; text-align: center; }
+.Part-rw .title-block-rw .title-num-rw {font-size: 2.00em; font-weight: normal; padding-bottom: 1em; color: rgb(0, 0, 0); font-family: PartTitleNumber, PartTitleBlock, TitleBlock, Galley; line-height: 1em; text-align: inherit; }
+.Part-rw .title-block-rw h1 {font-size: 2.00em; font-weight: normal; padding-bottom: 0.5em; color: rgb(0, 0, 0); font-family: PartTitle, PartTitleBlock, TitleBlock, Galley; line-height: 1em; text-align: inherit; }
+.Part-rw .title-block-rw .title-sub-rw {font-size: 1.4em; font-family: PartTitleSubTitle, PartTitleBlock, TitleBlock, Galley; line-height: 1em; text-align: inherit; }
+.Part-rw .title-block-rw .title-author-rw {font-style: italic; font-size: 1.1em; font-family: PartTitleAuthor, PartTitleBlock, TitleBlock, Galley; line-height: 1em; text-align: inherit; }
+.Part-rw .title-block-rw .title-contributor-rw {font-style: italic; font-size: 1.1em; font-family: PartTitleContributor, PartTitleBlock, TitleBlock, Galley; line-height: 1em; text-align: inherit; }
+.Part-rw .title-block-rw .title-other-rw {font-style: italic; font-size: 1em; font-family: PartTitleOther, PartTitleBlock, TitleBlock, Galley; line-height: 1em; text-align: inherit; }
+.Chapter-rw .title-block-rw {padding-right: 1em; margin-bottom: 1em; padding-bottom: 0em; padding-top: 2em; font-family: ChapterTitleBlock, TitleBlock, Galley; padding-left: 1em; text-align: center; }
+.Chapter-rw .title-block-rw .title-num-rw {font-size: 1.6em; font-weight: normal; padding-bottom: 0.5em; text-align: inherit; font-family: ChapterTitleNumber, ChapterTitleBlock, TitleBlock, Galley; font-style: normal; line-height: 1em; }
+.Chapter-rw .title-block-rw h1 {font-size: 2em; font-weight: normal; color: rgb(0, 0, 0); line-height: 1em; padding-bottom: 0.5em; font-family: ChapterTitle, ChapterTitleBlock, TitleBlock, Galley; font-style: normal; text-align: inherit; }
+.Chapter-rw .title-block-rw .title-sub-rw {text-align: inherit; font-size: 1.5em; font-family: ChapterTitleSubTitle, ChapterTitleBlock, TitleBlock, Galley; line-height: 1em; padding-bottom: 0.5em; }
+.Chapter-rw .title-block-rw .title-author-rw {font-size: 1.1em; font-weight: normal; color: rgb(0, 0, 0); text-indent: 0; line-height: 1em; padding-bottom: 1em; font-family: ChapterTitleAuthor, ChapterTitleBlock, TitleBlock, Galley; font-style: italic; text-align: inherit; }
+.Chapter-rw .title-block-rw .title-contributor-rw {font-size: 1.1em; font-weight: normal; color: rgb(0, 0, 0); text-indent: 0; line-height: 1em; padding-bottom: 1em; font-family: ChapterTitleContributor, ChapterTitleBlock, TitleBlock, Galley; font-style: italic; text-align: inherit; }
+.Chapter-rw .title-block-rw .title-other-rw {font-size: 1em; font-weight: normal; color: rgb(0, 0, 0); line-height: 1em; padding-bottom: 1em; font-family: ChapterTitleOther, ChapterTitleBlock, TitleBlock, Galley; font-style: normal; text-align: inherit; }
+.Section-rw .title-block-rw {right: 0; top: 0; padding-left: 1em; width: 420px; padding-right: 1em; padding-bottom: 0; position: absolute; padding-top: 30px; font-family: TextBlocks; text-align: left; }
+.Section-rw .title-block-rw .title-num-rw {font-size: 1.6em; font-weight: normal; color: rgb(0, 0, 0); line-height: 1em; padding-bottom: 0.5em; font-family: SectionTitleNumber, SectionTitleBlock, TitleBlock, Galley; font-style: normal; text-align: inherit; }
+.Section-rw .title-block-rw h1 {font-size: 36px; font-weight: bold; color: rgb(0, 100, 150); line-height: 40px; padding-bottom: 7px; font-family: TextBlocks; margin: 0; font-style: normal; text-align: right; }
+.Section-rw .title-block-rw .title-sub-rw {font-size: 28px; font-weight: normal; color: rgb(0, 0, 0); line-height: 28px; padding-bottom: 0em; font-family: TextBlocks; margin: 0; font-style: normal; text-align: right; }
+.Section-rw .title-block-rw .title-author-rw {font-size: 1.3em; font-weight: normal; color: rgb(0, 0, 0); line-height: 1em; padding-bottom: 0.5em; font-family: SectionTitleAuthor, SectionTitleBlock, TitleBlock, Galley; font-style: italic; text-align: inherit; }
+.Section-rw .title-block-rw .title-contributor-rw {font-size: 1.3em; font-weight: normal; color: rgb(0, 0, 0); line-height: 1em; padding-bottom: 0.5em; font-family: SectionTitleContributor, SectionTitleBlock, TitleBlock, Galley; font-style: italic; text-align: inherit; }
+.Section-rw .title-block-rw .title-other-rw {font-size: 1em; font-weight: normal; color: rgb(0, 0, 0); line-height: 1em; padding-bottom: 0.5em; font-family: SectionTitleOther, SectionTitleBlock, TitleBlock, Galley; font-style: normal; text-align: right; }
+.backmatter-rw .title-block-rw {padding-right: 1em; margin-bottom: 1em; padding-bottom: 0em; padding-top: 2em; font-family: BackmatterTitleBlock, TitleBlock, Galley; padding-left: 1em; text-align: center; }
+.backmatter-rw .title-block-rw .title-num-rw {font-size: 1.5em; font-weight: normal; color: rgb(0, 0, 0); line-height: 1em; padding-bottom: 0.5em; font-family: BackmatterTitleNumber, BackmatterTitleBlock, TitleBlock, Galley; font-style: normal; text-align: inherit; }
+.backmatter-rw .title-block-rw h1 {font-size: 1.6em; font-weight: normal; color: rgb(0, 0, 0); line-height: 1em; padding-bottom: 0.5em; font-family: BackmatterTitle, BackmatterTitleBlock, TitleBlock, Galley; font-style: normal; text-align: inherit; }
+.backmatter-rw .title-block-rw .title-sub-rw {font-size: 1.5em; font-weight: normal; color: rgb(0, 0, 0); line-height: 1em; padding-bottom: 0.5em; font-family: BackmatterTitleSubTitle, BackmatterTitleBlock, TitleBlock, Galley; font-style: normal; text-align: inherit; }
+.backmatter-rw .title-block-rw .title-author-rw {font-size: 1.1em; font-weight: normal; line-height: 1em; padding-bottom: 0.5em; font-family: BackmatterTitleAuthor, BackmatterTitleBlock, TitleBlock, Galley; margin: 1em 0 0 0; font-style: italic; text-align: inherit; }
+.backmatter-rw .title-block-rw .title-contributor-rw {font-size: 1.1em; font-weight: normal; line-height: 1em; padding-bottom: 0.5em; font-family: BackmatterTitleContributor, BackmatterTitleBlock, TitleBlock, Galley; margin: 1em 0 0 0; font-style: italic; text-align: inherit; }
+.backmatter-rw .title-block-rw .title-other-rw {font-size: 1em; font-weight: normal; line-height: 1em; padding-bottom: 0.5em; font-family: BackmatterTitleOther, BackmatterTitleBlock, TitleBlock, Galley; margin: 1em 0 0 0; font-style: italic; text-align: inherit; }
+.title-block-book-rw {padding: 0 0 0 0; font-size: 1em; position: relative; text-align: center; font-family: BookTitlePage, Galley; z-index: 100; line-height: 1em; }
+.title-block-book-rw h1 {font-size: 3.5em; right: 0; left: 0; display: block; color: rgb(0, 0, 0); top: 250px; font-weight: normal; font-style: normal; padding-bottom: 0.5em; position: absolute; font-family: BookTitle, BookTitlePage, Galley; margin: 30px 0 0 0em; line-height: 1em; text-align: center; }
+.title-block-book-rw .title-sub-rw {font-size: 3em; font-weight: normal; color: rgba(0, 0, 0, 0.5); top: 50px; font-style: normal; padding: 0 0 0 0; line-height: 1em; left: 30px; position: absolute; text-indent: 0; font-family: BookTitleSubTitle, BookTitlePage, Galley; margin: 0 0 0 0; display: block; text-align: center; }
+.title-block-book-rw .title-author-rw {font-size: 2.5em; right: 0; display: block; top: 470px; font-weight: normal; font-style: normal; padding: 0 0 0 0; left: 0; position: absolute; text-indent: 0; font-family: BookTitleAuthor, BookTitlePage, Galley; margin: 0 0 0 0; line-height: 1em; text-align: inherit; }
+.title-block-book-rw .title-contributor-rw {font-size: 1.3em; right: 0; left: 0; display: block; top: 560px; font-weight: normal; font-style: normal; padding-bottom: 1.5em; position: absolute; text-indent: 0; font-family: BookTitleContributor, BookTitlePage, Galley; margin: 0 0 0 0; line-height: 1em; text-align: inherit; }
+.title-block-book-rw .title-other-rw {font-size: 1em; font-weight: normal; text-indent: 0; line-height: 1em; padding-bottom: 1em; font-family: BookTitleOther, BookTitlePage, Galley; font-style: normal; text-align: inherit; }
+.imprint-rw {right: 0; bottom: 0; text-align: center; padding-bottom: 0.5em; position: absolute; padding-top: 0.5em; font-family: Imprint, BookTitlePage, Galley; margin: 0 0 0 0; left: 0; }
+.imprint-rw p { font-size: 0.9em; font-style: normal; font-weight: normal; line-height: 1em; text-indent: 0; }
+.title-block-book-rw p {font-size: 1em; line-height: 1em; padding-bottom: 0.5em; text-align: inherit; font-weight: normal; font-style: normal; text-indent: 0em; }
+.title-block-book-rw p+p { text-indent: 0em; }
+#BookTitlePage1, #Frontispiece1 { position: relative; width: 683px; height: 768px; background-color: white; }
+#Frontispiece1 .caption-rw { position: absolute; bottom: 40px; left: 100px; right: 100px; color: white; font-size: 1.3em; line-height: 1.1em; text-align: center; text-shadow: 1px 1px 2px black; }
+#BookTitlePage1 .imprint-rw { position:absolute; bottom: 10px; left: 20px; right: 20px; }
+.medal-mbe { position: absolute; top: -60px; right: 110px; z-index: 20; }
+.medal-dfc { position: absolute; top: -10px; right: 20px; z-index: 10; }
+.caterpillar { position: absolute; bottom: 50px; right: 50px; }
+.block-rw h4 { font-size: 0.9em; line-height: 1.2em; text-align: left; text-indent: 0; font-style: normal; font-weight: bold; margin-top: 1em; margin-right: 0; margin-bottom: 1em; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; }
+.block-rw h5 { font-size: 0.9em; line-height: 1.2em; text-align: left; text-indent: 0; font-style: italic; font-weight: bold; margin-top: 1em; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; }
+.block-rw h6 { font-size: 0.9em; line-height: 1.2em; font-style: italic; text-align: left; margin-top: 0.5em; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; }
+div.dedication-rw {font-size: 1.1em; margin-right: auto; margin-bottom: 0; width: 50%; margin-top: 2em; margin-left: auto; font-family: Epigraph, TextBlock, Galley; line-height: 1.2em; }
+div.dedication-rw p { font-style: italic; }
+.extract-verse-rw {width: 70%; margin-top: 1em; margin-right: 10%; font-family: ExtractVerse, Extract, TextBlock, Galley; margin: 10%; margin-bottom: 1em; }
+.extract-verse-rw .stanza-rw { display: table; margin: 0 auto 0 auto; }
+.extract-verse-rw .stanza-rw p { text-indent: -1.3em; margin-left: 1.3em; }
+.general-rw { margin-top: 1em; margin-right: 0; margin-bottom: 0em; margin-left: 0; position: absolute; top: 120px; right: 15px; width: 395px; bottom: 20px; padding: 15px 15px 15px 15px; background-color: rgba(255, 255, 255, 0.7); }
+.general-rw p { text-indent: 0; font-size: 18px; line-height: 24px; margin: 0 0 12px 0; text-align: left; }
+.media-rw.exclude-reader-rw { display: none; }
+.Section-rw .image-rw { position: absolute; top: 30px; left: 30px; }
+.Section-rw .image-rw.width-auto-rw { height: 680px !important; width: inherit; }
+.Section-rw .image-rw.width-fixed-rw img { height: 680px !important; }
+.Section-rw .general-rw .figure-rw { position: absolute; bottom: 10px !important; left: 0px; }
+.media-rw { page-break-inside: avoid; text-indent: 0; text-align: left; }
+.media-rw h4 { font-size: 1em; font-weight: bold; padding: 0.5em 0 0.5em 0; text-align: left; }
+.media-rw h5 { font-size: 1em; font-weight: bold; padding: 0.75em 0 0.25em 0; }
+.media-rw h6 { font-size: 1em; font-style: italic; padding: 0.75em 0 0.5em 0; }
+.media-rw p { text-indent: 0; text-align: left; }
+.media-rw p.caption-rw { font-size: 18px; line-height: 20px; font-style: italic; text-indent: 0; text-align: left; padding: 0.25em 0.5em 0 0.5em; }
+.figure-rw { margin-top: 0.5em; margin-right: 0; margin-bottom: 0.5em; padding: 0; }
+.image-rw { margin-top: 0.5em; margin-right: 0; margin-bottom: 0.5em; padding: 0; }
+.plate-rw { margin-top: 0.5em; margin-right: 0; margin-bottom: 0.5em; padding: 0; }
+.plate-rw { margin: 0; padding: 0; position: absolute; top: 0; }
+div#figure1, div#figure2 { width: 100%; margin: 1em 0 1em 0; }
+.layout-rw table { table-layout: auto; border-collapse: collapse; margin-top: 0.5em; margin-bottom: 0.5em; }
+.layout-rw table th { font-size: 1em; line-height: 1em; font-weight: normal; vertical-align: top; }
+.layout-rw table td { font-size: 1em; line-height: 1em; font-weight: normal; vertical-align: top; }
+.layout-rw table thead th { font-size: 1em; line-height: 1em; font-weight: normal; vertical-align: top; }
+.layout-rw table tbody td { font-size: 1em; line-height: 1em; font-weight: normal; vertical-align: top; }
+.col-4-rw { column-count: 4; -moz-column-count: 4; -webkit-column-count: 4; -o-column-count: 4; column-gap: 1em; -moz-column-gap: 1em; -webkit-column-gap: 1em; -o-column-gap: 1em; -moz-column-rule: 1px solid gray; -webkit-column-rule: 1px solid gray; -o-column-rule: 1px solid gray; column-rule: 1px solid gray; margin: 1em 0 1em 0; }
+.width-20-rw { width: 19%; }
+.width-50-rw { width: 49%; }
+.width-70-rw { width: 69%; }
+.width-80-rw { width: 79%; }
+.width-90-rw { width: 89%; }
+.width-auto-rw .pc-rw { width: auto; }
+.width-fixed-rw .pc-rw { width: auto; }
+.width-fixed-rw .pc-rw img { width: auto; }
+.pc-rw { margin: 0; padding: 0; }
+.pc-rw img { width: 100%; margin: 0; padding: 0; }
+.pc-rw table { width: 100%; margin: 0; padding: 0; }
+.pc-rw p { text-align: left; }
+div.pc-rw>:first-child { margin-top: 0; padding-top: 0; }
+div.pc-rw>:last-child { margin-bottom: 0; padding-top: 0; }
+div.align-right-rw { display: block; text-align:right; margin-left: auto; }
+.align-right-rw table { margin: 0 0 0 auto; }
+.align-right-rw .pc-rw { margin: 0 0 0 auto; }
+.align-right-rw .pc-rw img { margin: 0 0 0 auto; }
+.align-right-rw .pc-rw object { margin: 0 0 0 auto; }
+div.align-center-rw { display: block; text-align:center; margin-left: auto; margin-right: auto; }
+.align-center-rw table { margin: 0 auto 0 auto; }
+.align-center-rw .pc-rw { margin: 0 auto 0 auto; }
+.align-center-rw .pc-rw img { margin: 0 auto 0 auto; }
+.align-center-rw .pc-rw object { margin: 0 auto 0 auto; }
+div.floatgalley-left-rw { float: left; text-align: left; margin: 0.5em 1em 0em 0; padding: 0; }
+div.poem-rw .title-block-rw h1 { color: black; font-weight: normal; font-style: normal; font-size: 1.5em; text-align: center; padding-bottom: 0.5em; }
+div.poem-rw h4 { font-weight: normal; font-style: normal; font-size: inherit; line-height: 1em; text-align: center; padding: 0.5em 0 0.5em 0; margin: 0; }
+div.poem-rw h2 {padding: 0.5em 0 0.5em 0; font-size: inherit; text-transform: uppercase; text-align: center; font-weight: normal; margin: 0; line-height: 1em; font-style: inherit; }
+div.poem-rw h3 {padding: 0.5em 0 0.5em 0; font-size: inherit; text-align: center; font-weight: normal; margin: 0; line-height: 1em; font-style: inherit; }
+div.poem-rw h5 {padding: 0.5em 0 0.5em 0; font-size: inherit; text-align: center; font-weight: bold; margin: 0; line-height: 1em; font-style: italic; }
+div.poem-rw div.stanza-rw h4 { font-weight: normal; font-style: normal; font-size: inherit; line-height: 1em; text-align: center; padding: 0em 0 1em 0 !important; margin: 0 !important; }
+div.poem-rw .poem-body-rw div.stanza-rw { margin: 0 0 1em 0; }
+div.stanza-rw p { text-indent: -1.3em; margin-left: 1.3em; padding-bottom: 0; margin-bottom: 0; }
+div.stanza-rw p+p { text-indent: -1.3em; margin-left: 1.3em; padding-bottom: 0; margin-bottom: 0; }
+.Section-rw .copyright-rw { font-family: sans-serif; color: rgba(0, 0, 0, 0.3); font-size: 13px; text-align: center; position: absolute; left: 0; bottom: 0; width: 100%; height: 24px; background-color: rgba(0, 0, 0, 0.1); padding: 3px 0 0 0; }
+.arrow-up-rw { top: 50px; left: 50px; }
+.arrow-right-rw { top: 50px; left: 150px; }
+.arrow-down-rw { top: 50px; left: 250px; }
+.arrow-left-rw { top: 50px; left: 350px; }
+.exclude-reader-rw { display: none; }
+p.alt-rw { font-family: sans-serif; }.rwapp-temp {
+
+}

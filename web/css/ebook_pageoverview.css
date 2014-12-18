@@ -1,0 +1,25 @@
+
+
+
+.pageOverview{
+    
+    margin: 15px; 
+    width: 400px; 
+    height: 200px;
+    overflow: auto; 
+    background-color: yellowgreen; 
+    z-index: 1;
+}
+
+
+
+.pageOverview_addPage{
+    height: 40px;
+    width: 100%;    
+    background-color: transparent;    
+}
+.pageOverview_addPage:hover{
+    background-image: url('http://cdns2.freepik.com/free-photo/add-new-plus-button_318-9157.jpg');
+    background-size: 100% 100%;
+}
+
