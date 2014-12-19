@@ -666,16 +666,22 @@
             </div>
         </div>                                        
                 
-        
-                                        
+                                                
         <div id="zbookMainContainer" class="container-fluid">            
             
             <div class="row">   
                 <div class="col-md-1"></div>
                 <div class="col-md-10">
-                    <div class="row">                                           
+                    
+                    <div class="row">
+                        <div class="col-md-12" style="background: #f5e79e;">
+                            <button id="menubarSaveButton" class="btn btn-primary" type="button" >Save Project</button>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
 
-                        <div class="col-md-3" style="height: 200px; background: #00ffff;"></div>
+                        <div class="col-md-3" style="height: 200px; background: transparent;"></div>
                         <div id="zbookMenuContainer" class="col-md-9" style="height: 200px; background: #00ffff;">
 
                             <div id="pageOperations"> 
@@ -798,7 +804,9 @@
         <script src="../lib/js/head.min.js" type="text/javascript"></script>	        
         <script src="../js/html2canvas.js" type="text/javascript"></script>
         
-        <script src="../js/test.js" type="text/javascript"></script>
+        <script src="../js/ebook-main.js" type="text/javascript"></script>
+        <script src="../js/ebook-menuBarListener.js" type="text/javascript"></script>
+        <script src="../js/ebook-server.js" type="text/javascript"></script>
         <script src="../js/ebook-pageoverview.js" type="text/javascript"></script>
             
 
