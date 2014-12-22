@@ -1,28 +1,29 @@
-package gov.Servlets;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package gov.Servlets;
+
 import com.google.gson.Gson;
-import gov.DBOperations.MongoDBOperations;
 import gov.Result.Result;
+import gov.Util.BookOperator;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.io.IOUtils;
 
 /**
  *
  * @author kemal
  */
-
-@WebServlet(urlPatterns = {"/DBHandler"})
-public class DBHandler extends HttpServlet {
+@WebServlet(name = "BookHandler", urlPatterns = {"/BookHandler"})
+public class BookHandler extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,34 +37,19 @@ public class DBHandler extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        try (PrintWriter out = response.getWriter()) {                        
+        try (PrintWriter out = response.getWriter()) {
+            
             
             Result resObj = new Result();
             Gson gson = new Gson();
             
-            String bookId = request.getParameter("bookId");
-            String bookContent = request.getParameter("bookContent");
-            String operation = request.getParameter("operation");            
             
-            if(operation.equalsIgnoreCase("insert")){                            
-                MongoDBOperations mongodb = new MongoDBOperations();
-                mongodb.insertToMongo(
-                    "ebook", 
-                    "books",
-                    mongodb.getMongoBasicDBObject()
-                            .append("bookID", bookId)
-                            .append("bookContent", bookContent)
-                    );
-                resObj.setRESULT_MAIN("RESULT.001", "SUCCESS INSERT", bookContent);
-            }else{
-                resObj.setRESULT_MAIN("RESULT.001", "SUCCESS", bookContent);
-            }
+            BookOperator bookOp = new BookOperator();
+            resObj.setRESULT(bookOp);
             
             out.write(gson.toJson(resObj));
             out.close();
-                
-            
+                        
         }
     }
 
