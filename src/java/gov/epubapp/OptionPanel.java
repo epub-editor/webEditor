@@ -5,9 +5,9 @@
  */
 package gov.epubapp;
 
+import gov.Util.Converter;
 import gov.Util.BookOperator;
-import gov.epubapp.Converter;
-import static gov.epubapp.EpubApp.*;
+import static gov.Util.EpubApp.*;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -103,8 +103,8 @@ public class OptionPanel extends JPanel implements ActionListener {
                 boolean isOK = converter.extractEpub( bookOp.file , converter.getUSER_EPUB_CONF_DIRECTORY());
                 // -2- If extract properly then create editable html
                 if(isOK){
-                    opfDirectory = findOPFDirectory();                
-                    prepareInitHTML(new File("epubInitHTML/zbook_Init.xhtml"),new File(epubTemp+opfDirectory));
+//                    opfDirectory = findOPFDirectory();                
+//                    prepareInitHTML(new File("epubInitHTML/zbook_Init.xhtml"),new File(epubTemp+opfDirectory));
                 }
                                 
             }else if(returnVal == JFileChooser.CANCEL_OPTION){

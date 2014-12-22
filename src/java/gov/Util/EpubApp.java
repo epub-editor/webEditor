@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gov.epubapp;
+package gov.Util;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,17 +36,15 @@ public class EpubApp {
         // bu method opf file bulur ve editable html üretilmesini sağlar
 //        opfDirectory = findOPFDirectory();                
 //        prepareInitHTML(new File("epubInitHTML/zbook_Init.xhtml"),new File(epubTemp+opfDirectory));                                    
-    
-    
-    
+                   
     
     /*****************************************************************************
     *************************  XML OPERATION  ************************************
     ******************************************************************************/
        
     public static String opfDirectory = "";
-    public static String epubTemp = "epubTemp/";
-    public static String htmlFileLocation = "epubInitHTML/ulak.html";
+    public static String epubTemp =  "/Users/kemal/NetBeansProjects/z-kitap/epubData/epubTemp/";
+    public static String htmlFileLocation = "/Users/kemal/NetBeansProjects/z-kitap/epubData/epubInitHTML/ulak.html";
     
     /**
      * This function one of the common methods for xml operations.Function provides
@@ -81,29 +79,41 @@ public class EpubApp {
      * @param file
      * @return 
      */
-    public static Document getDocument(File file){                
+    public Document getDocument(File file){                
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
-            Document document = db.parse(file);
-            document.getDocumentElement().normalize();            
+            Document document = file==null ? db.newDocument() : db.parse(file);                                      
+            if(file!=null)
+                document.getDocumentElement().normalize();            
+            
             return document;            
-        } catch (ParserConfigurationException | SAXException | IOException ex) {
+        } catch (ParserConfigurationException | SAXException | IOException ex) {            
             Logger.getLogger(EpubApp.class.getName()).log(Level.SEVERE, null, ex);
         }                        
         return null;
     }
+        
     
         
     /**
      * This function will be used to get attribute values from "tagName" node
      * 
+     * @example
+     *          <spine page-progression-direction="rtl">
+                    <itemref idref="XHTML0000" />
+                </spine>
+                
+                -- 
+                --> if tagName=spine && attrName=idref function returns "XHTML0000"
+                --
+
      * @param file
      * @param tagName
      * @param attrName
      * @return 
      */
-    public static ArrayList<String> getXHTML_tagProperty(File file , String tagName , String attrName){
+    public ArrayList<String> getXHTML_tagProperty(File file , String tagName , String attrName){
         ArrayList<String> itemList = new ArrayList<>();
         Document doc = getDocument(file);
         // Get tagName node
@@ -123,15 +133,21 @@ public class EpubApp {
         return itemList;
     } 
     
-        
+    
+    
+    
+    
+    /*****************************************************************************
+    ************************** OPF FILE OPERATIONS *******************************
+    ******************************************************************************/        
     /**
      * This function used to take xhtml href list from .opf file.Result will be
      * used to create iframe tags on editable html
      * 
-     * @param file
+     * @param file should be .opf file of epub
      * @return 
      */
-    public static ArrayList<String> getXHTML_hrefList(File file){        
+    public ArrayList<String> getXHTML_hrefList(File file){     
         ArrayList<String> xhtmlHrefList = new ArrayList<>();
         ArrayList<String> idrefList = getXHTML_tagProperty(file , "spine" , "idref");
         Document doc = getDocument(file);
@@ -153,7 +169,29 @@ public class EpubApp {
         return xhtmlHrefList;       
     }
     
+    
+    /**
+     * This function find directory of .opf file
+     * 
+     * @return 
+     */
+    public String findOPFDirectory(){
+        // read container.xml file to find epub .opf directory
+        Document doc = getDocument(new File("/Users/kemal/NetBeansProjects/z-kitap/epubData/epubTemp/META-INF/container.xml"));
+        // get <rootfile>
+        Element rootFile = (Element) doc.getElementsByTagName("rootfile").item(0);
+        // return path        
+        return rootFile.getAttribute("full-path");        
+    }
+    
+    
+    
+    
             
+    /*****************************************************************************
+    ************************** CREATE HTML FILE **********************************
+    ************************* epub conf to html **********************************
+    ******************************************************************************/ 
     /**
      * This function creates Document with iframe tags
      * 
@@ -195,32 +233,29 @@ public class EpubApp {
      * @param htmlFile
      * @param opfFile 
      */
-    public static void prepareInitHTML(File htmlFile , File opfFile){                
+    public void prepareInitHTML(File htmlFile , File opfFile){                
         // create && append iframe tags        
         Document doc = createDocumentNodes(htmlFile , getXHTML_hrefList(opfFile));  
         // write to html
         writeDocumentToFile(new File(htmlFileLocation) , doc , "html");
     }
     
-    
-    /*****************************************************************************
-    ***********************  EPUB INFO OPERATIONs  *******************************
-    ******************************************************************************/
+        
     
     
     /**
-     * This function find directory of .opf file
      * 
-     * @return 
+     * 
+     * @param 
+     * @param  
      */
-    public static String findOPFDirectory(){
-        // read container.xml file to find epub .opf directory
-        Document doc = getDocument(new File("epubTemp/META-INF/container.xml"));
-        // get <rootfile>
-        Element rootFile = (Element) doc.getElementsByTagName("rootfile").item(0);
-        // return path
-        return rootFile.getAttribute("full-path");        
+    public void prepareXHTMLFiles(String fileName , String content){                        
+        
+        
+        // write to html
+        //writeDocumentToFile(new File(htmlFileLocation) , doc , "html");
     }
+    
         
     
 }

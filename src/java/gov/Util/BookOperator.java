@@ -5,9 +5,7 @@
  */
 package gov.Util;
 
-import gov.epubapp.Converter;
-import static gov.epubapp.Converter.getUSER_EPUB_FILE;
-import gov.epubapp.EpubApp;
+import static gov.Util.Converter.getUSER_EPUB_FILE;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,13 +19,18 @@ import org.apache.commons.io.IOUtils;
  */
 public class BookOperator {
     
+    
+    
+    public static String epubTemp =  "/Users/kemal/NetBeansProjects/z-kitap/epubData/epubTemp/";
+    public static String htmlFileLocation = "Users/kemal/NetBeansProjects/z-kitap/epubData/epubInitHTML/ulak.html";
+    
+    
     public String path = "";
     public String ls = "";
     public File file = new File("/Users/kemal/Desktop/widget-figure-gallery-20121022.epub");
     
     public Converter converter;
-    public EpubApp readWriter;
-    
+    public EpubApp readWriter;           
     
     public BookOperator(){
         
@@ -44,16 +47,17 @@ public class BookOperator {
             in = proc.getInputStream();            
             ls = IOUtils.toString(in);
                         
-            System.out.println(converter.getUSER_EPUB_FILE());
-            converter.createEPUB("first");     
+            //System.out.println(converter.getUSER_EPUB_FILE());
+            //converter.createEPUB("first");     
+            
+//            System.out.println("OPF file directory is :: " + findOPFDirectory());
             
             
             
         } catch (IOException ex) {
             Logger.getLogger(BookOperator.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+                
         
     }
     
