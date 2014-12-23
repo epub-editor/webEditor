@@ -22,3 +22,25 @@
                     });
                     
                 }
+                
+                
+                
+                /*
+                * This function is used for save project to mongoDB
+                */
+                function createEBook(event) {
+                    event.preventDefault();                                        
+             
+
+                    $.ajax({
+                        url:"http://localhost:8080/BookHandler",
+                        type:"POST",
+                        data: jQuery.parseJSON( '{"employees":[{"firstName":"John", "lastName":"Doe"}]}'),
+                        contentType:"application/json; charset=utf-8",
+                        dataType:"json",
+                        success: function(){
+                            alert("Deneme başarılı");
+                        }
+                      })
+                    
+                }

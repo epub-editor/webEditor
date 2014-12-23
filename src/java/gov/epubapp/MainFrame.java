@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -34,6 +35,13 @@ import javax.swing.GroupLayout;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 
 import org.w3c.dom.*;
@@ -63,9 +71,90 @@ public class MainFrame extends javax.swing.JFrame {
         panel.setBackground(Color.red);
         this.add(panel, BorderLayout.CENTER);
         
-    }   
+    }       
     
-    public static void main(String[] args) {                
+    
+    /**
+     * This function will be used for append content of page to new xhtml document
+     * to specific element.For example docImport can be appended to head or body
+     * element
+     * 
+     * @example
+            * Document docWithBody
+            <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="tr">
+            <head></head>
+            <body>
+                </body>
+            </html>
+            * Document docContent
+            <section><div/><div/></section>
+            * element --> "body"
+            * Result
+            <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="tr">
+            <head></head>
+            <body>
+                <section><div/><div/></section></body>
+            </html>            
+     * 
+     * @param docMain
+     * @param docImport
+     * @param element       { "body" | "head" }
+     * @return boolean
+     */
+    public static boolean appendContentToDocument(Document docMain , Document docImport , String element){
+        // get list of body tags
+        NodeList bodyElement;
+        if(element.equalsIgnoreCase("body")){
+            bodyElement = docMain.getElementsByTagName("body");
+        }else if(element.equalsIgnoreCase("head")){
+            bodyElement = docMain.getElementsByTagName("head");
+        }else{
+            return false;
+        }                
+        // size of body element size should be 1
+        if(bodyElement.getLength()==1){
+            NodeList contentChildren = docImport.getChildNodes();            
+            for(int i=0; i<contentChildren.getLength(); i++){
+                Node conChild = contentChildren.item(i);  
+                // <--* Node should be imported to document *--> OR
+                // <--* It should be change owner of node *--> because appended node's source document different
+                Node importedNode = docMain.importNode(conChild, true);
+                bodyElement.item(0).appendChild(importedNode);                
+            }
+            return true;
+        }        
+        return false;
+    }
+            
+    
+    /**
+     * This function one of the common methods for document operations.Function 
+     * provides to convert document to readable string    
+     *     
+     * @param doc 
+     * @return String
+     */
+    public static String documentToString(Document doc){
+        TransformerFactory tf = TransformerFactory.newInstance();
+        Transformer transformer;
+        String output = "";
+        try {
+            transformer = tf.newTransformer();
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            StringWriter writer = new StringWriter();
+            transformer.transform(new DOMSource(doc), new StreamResult(writer));
+            output = writer.getBuffer().toString().replaceAll("\r", "");
+        } catch (TransformerConfigurationException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (TransformerException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }                
+        return output;        
+    }
+            
+    
+    
+    public static void main(String[] args) throws IOException {                
         
 //        new MainFrame(); 
         
@@ -73,40 +162,24 @@ public class MainFrame extends javax.swing.JFrame {
         
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder;
-        try {
-            docBuilder = docFactory.newDocumentBuilder();
-            InputStream is = new ByteArrayInputStream("<section><div></div></section>".getBytes());
-            Document docStr = docBuilder.parse(is);  
-            NodeList nL = docStr.getChildNodes();    
-            for(int i=0; i<nL.getLength(); i++){
-                System.out.println(nL.item(i).getNodeName());
-            }
+                
             
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        BookOperator book = new BookOperator();                                    
+//        Document docContent = book.epubApp.getDocument("<section><div></div><div></div></section>");    
+//        
+//        Document docLink = book.epubApp.getDocument("<link href=\"../styles/ebook_XXXs.css\" rel=\"stylesheet\" type=\"text/css\"/>");                                                   
+//        Document doc = book.epubApp.getDocument(new File("/Users/kemal/NetBeansProjects/z-kitap/epubData/epubDefault.xhtml"));                               
+//
+//        appendContentToDocument(doc , docContent , "body");
+//        appendContentToDocument(doc, docLink , "head");
+//        System.out.println(documentToString(doc));
+//                                                           
+//        
+//        book.converter.createEPUB("finalEpub"); 
+        
         
 
-        
-        BookOperator book = new BookOperator();
-        Document doc = book.readWriter.getDocument(new File("/Users/kemal/NetBeansProjects/z-kitap/epubData/epubDefault.xhtml"));       
-        
-        NodeList nList = doc.getChildNodes();       
 
-        for(int i=0; i<nList.getLength(); i++){
-            Node n = nList.item(i);
-            NodeList nListX = n.getChildNodes();
-            for(int m=0; m<nListX.getLength(); m++){
-                System.out.println("Node name : " + nListX.item(m).getNodeName());
-            }
-            
-        }
-        
-        
 //        try {                                                
 //            File logFile = new File("denemeXX.txt");
 //
@@ -116,8 +189,7 @@ public class MainFrame extends javax.swing.JFrame {
 //        
 //        } catch (IOException ex) {
 //            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-                
+//        }                
         
     } 
     

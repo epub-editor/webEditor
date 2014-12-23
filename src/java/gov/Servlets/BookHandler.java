@@ -36,16 +36,17 @@ public class BookHandler extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
+        
         try (PrintWriter out = response.getWriter()) {
             
-            
             Result resObj = new Result();
-            Gson gson = new Gson();
-            
+            Gson gson = new Gson();           
             
             BookOperator bookOp = new BookOperator();
-            resObj.setRESULT(bookOp);
+            
+            resObj.setRESULT("OK");
             
             out.write(gson.toJson(resObj));
             out.close();

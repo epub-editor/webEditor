@@ -33,12 +33,12 @@ import org.apache.commons.io.IOUtils;
 public class Converter {
 
     // DIRECTORY
-    private static String DEFAULT_EPUB_CONF_DIRECTORY = "/Users/kemal/Desktop/" + "epubConf";
-    private static String USER_EPUB_CONF_DIRECTORY = "/Users/kemal/Desktop/" + "epubTemp";
-    private static String USER_EPUB_FILE = "/Users/kemal/Desktop/" + "epubVersion"; 
-    private static String EPUB_INIT_HTML = "/Users/kemal/Desktop/" + "epubInitHTML";
+    private static String DEFAULT_EPUB_CONF_DIRECTORY = "/Users/kemal/NetBeansProjects/z-kitap/epubData/" + "epubConf";
+    private static String USER_EPUB_CONF_DIRECTORY = "/Users/kemal/NetBeansProjects/z-kitap/epubData/" + "epubTemp";
+    private static String USER_EPUB_FILE = "/Users/kemal/NetBeansProjects/z-kitap/epubData/" + "epubVersion"; 
+    private static String EPUB_INIT_HTML = "/Users/kemal/NetBeansProjects/z-kitap/epubData/" + "epubInitHTML";
     // FILES
-    private static String INITIAL_HTML = "/Users/kemal/Desktop/" + "zbook_Init.xhtml";
+    private static String INITIAL_HTML = "/Users/kemal/NetBeansProjects/z-kitap/epubData/" + "zbook_Init.xhtml";
     
     
     public Converter(){                

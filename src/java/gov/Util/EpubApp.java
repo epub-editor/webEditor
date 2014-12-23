@@ -5,8 +5,12 @@
  */
 package gov.Util;
 
+import gov.epubapp.MainFrame;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -92,6 +96,26 @@ public class EpubApp {
             Logger.getLogger(EpubApp.class.getName()).log(Level.SEVERE, null, ex);
         }                        
         return null;
+    }    
+    
+    /**
+     * This function used for create initial Document variable from string 
+     * 
+     * @param str
+     * @return 
+     */
+    public Document getDocument(String str){                
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            InputStream inStream = new ByteArrayInputStream(str.getBytes());            
+            Document document = db.parse(inStream);                                                  
+            document.getDocumentElement().normalize();
+            return document;            
+        } catch (ParserConfigurationException | SAXException | IOException ex) {            
+            Logger.getLogger(EpubApp.class.getName()).log(Level.SEVERE, null, ex);
+        }                        
+        return null;
     }
         
     
@@ -154,7 +178,6 @@ public class EpubApp {
         // Get tagName node
         Node tagNode = doc.getElementsByTagName("manifest").item(0);
         if(tagNode.hasChildNodes()){                        
-//            System.out.println("manifest" + " has child Nodes and # " + tagNode.getChildNodes().getLength());
             NodeList nodeLst = tagNode.getChildNodes();
             for(int i=0; i<nodeLst.getLength(); i++){
                 Node node = nodeLst.item(i);
@@ -257,6 +280,89 @@ public class EpubApp {
     }
     
         
+    
+    
+    
+    
+     
+    /**
+     * This function will be used for append content of page to new xhtml document
+     * to specific element.For example docImport can be appended to head or body
+     * element
+     * 
+     * @example
+            * Document docWithBody
+            <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="tr">
+            <head></head>
+            <body>
+                </body>
+            </html>
+            * Document docContent
+            <section><div/><div/></section>
+            * element --> "body"
+            * Result
+            <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="tr">
+            <head></head>
+            <body>
+                <section><div/><div/></section></body>
+            </html>            
+     * 
+     * @param docMain
+     * @param docImport
+     * @param element       { "body" | "head" }
+     * @return boolean
+     */
+    public boolean appendContentToDocument(Document docMain , Document docImport , String element){
+        // get list of body tags
+        NodeList bodyElement;
+        if(element.equalsIgnoreCase("body")){
+            bodyElement = docMain.getElementsByTagName("body");
+        }else if(element.equalsIgnoreCase("head")){
+            bodyElement = docMain.getElementsByTagName("head");
+        }else{
+            return false;
+        }                
+        // size of body element size should be 1
+        if(bodyElement.getLength()==1){
+            NodeList contentChildren = docImport.getChildNodes();            
+            for(int i=0; i<contentChildren.getLength(); i++){
+                Node conChild = contentChildren.item(i);  
+                // <--* Node should be imported to document *--> OR
+                // <--* It should be change owner of node *--> because appended node's source document different
+                Node importedNode = docMain.importNode(conChild, true);
+                bodyElement.item(0).appendChild(importedNode);                
+            }
+            return true;
+        }        
+        return false;
+    }
+            
+    
+    /**
+     * This function one of the common methods for document operations.Function 
+     * provides to convert document to readable string    
+     *     
+     * @param doc 
+     * @return String
+     */
+    public String documentToString(Document doc){
+        TransformerFactory tf = TransformerFactory.newInstance();
+        Transformer transformer;
+        String output = "";
+        try {
+            transformer = tf.newTransformer();
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            StringWriter writer = new StringWriter();
+            transformer.transform(new DOMSource(doc), new StreamResult(writer));
+            output = writer.getBuffer().toString().replaceAll("\r", "");
+        } catch (TransformerConfigurationException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (TransformerException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }                
+        return output;        
+    }
+            
     
 }
 

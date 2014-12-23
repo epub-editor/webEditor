@@ -94,18 +94,20 @@ public class OptionPanel extends JPanel implements ActionListener {
                                     
             int returnVal = fileChooser.showOpenDialog(this);
             if(returnVal == JFileChooser.APPROVE_OPTION){
-
-                bookOp.file = fileChooser.getSelectedFile();                                   
                 
-                // -0- Clear directory of "epubTemp"
-                bookOp.preImport();
-                // -1- Extract epub file to "epubTemp" directory                
-                boolean isOK = converter.extractEpub( bookOp.file , converter.getUSER_EPUB_CONF_DIRECTORY());
-                // -2- If extract properly then create editable html
-                if(isOK){
+// Aşağıdaki commetli satırlar açılacak
+
+//                bookOp.file = fileChooser.getSelectedFile();                                   
+//                
+//                // -0- Clear directory of "epubTemp"
+//                bookOp.preImport();
+//                // -1- Extract epub file to "epubTemp" directory                
+//                boolean isOK = converter.extractEpub( bookOp.file , converter.getUSER_EPUB_CONF_DIRECTORY());
+//                // -2- If extract properly then create editable html
+//                if(isOK){
 //                    opfDirectory = findOPFDirectory();                
 //                    prepareInitHTML(new File("epubInitHTML/zbook_Init.xhtml"),new File(epubTemp+opfDirectory));
-                }
+//                }
                                 
             }else if(returnVal == JFileChooser.CANCEL_OPTION){
                 System.out.println("IMPORT-BUTTON > Cancel selected");
