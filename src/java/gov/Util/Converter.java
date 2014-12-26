@@ -16,7 +16,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
@@ -24,6 +27,7 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveOutputStream;
 import org.apache.commons.compress.archivers.zip.ZipFile;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.filefilter.IOFileFilter;
 
 /**
  *
@@ -33,8 +37,9 @@ import org.apache.commons.io.IOUtils;
 public class Converter {
 
     // DIRECTORY
-    private static String DEFAULT_EPUB_CONF_DIRECTORY = "/Users/kemal/NetBeansProjects/z-kitap/epubData/" + "epubConf";
+    private static String DEFAULT_EPUB_CONF_DIRECTORY = "/Users/kemal/NetBeansProjects/z-kitap/epubData/epubConf/" + "epubDefault";
     private static String USER_EPUB_CONF_DIRECTORY = "/Users/kemal/NetBeansProjects/z-kitap/epubData/" + "epubTemp";
+    
     private static String USER_EPUB_FILE = "/Users/kemal/NetBeansProjects/z-kitap/epubData/" + "epubVersion"; 
     private static String EPUB_INIT_HTML = "/Users/kemal/NetBeansProjects/z-kitap/epubData/" + "epubInitHTML";
     // FILES
@@ -90,6 +95,16 @@ public class Converter {
     public boolean createEpubConfFiles(){        
         try {
             FileUtils.copyDirectory(new File(getDEFAULT_EPUB_CONF_DIRECTORY()), new File(getUSER_EPUB_CONF_DIRECTORY()));
+        } catch (IOException ex) {
+            Logger.getLogger(Converter.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+    }
+    public boolean createEpubConfFiles(String getConfLocation , String setConfLocation){        
+        try {
+            FileUtils.cleanDirectory(new File(setConfLocation));
+            FileUtils.copyDirectory(new File(getConfLocation), new File(setConfLocation));
         } catch (IOException ex) {
             Logger.getLogger(Converter.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -292,6 +307,41 @@ public class Converter {
         System.out.println(msg);
     }
     
+    
+        
+        
+    public void getEpubConfFiles( ArrayList arr , String directory , String fileDirectory){                               
+        
+        File f = new File(directory);
+        File[] listfiles = f.listFiles();
+        for (File file:listfiles) {
+            
+            if (file.isDirectory()) {                
+                getEpubConfFiles( arr , file.getAbsolutePath() , fileDirectory.equalsIgnoreCase("") ? file.getName() : fileDirectory + "/" + file.getName());                                
+            } else {                                
+                String filePath = fileDirectory.equalsIgnoreCase("") ? file.getName() : fileDirectory + "/" + file.getName();
+                arr.add(new fileNode(filePath , file , null));                    
+            }
+        }        
+    }       
         
     
+    
+    public class fileNode<T>
+    {
+        public T data;
+        public File file;
+        public fileNode<T> next;
+
+        public fileNode(T data, File file ,  fileNode<T> next)
+        {
+            this.data = data;
+            this.file = file;
+            this.next = next;
+        }
+        
+        public T getFileDirectory(){
+            return this.data;
+        }
+    }
 }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="pub-id" version="3.0" xml:lang="tr">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <dc:title id="title"></dc:title>
+        <meta refines="#title" property="file-as"> </meta>
+        <meta refines="#title" property="alternate-script" xml:lang="tr"> </meta>
+        <dc:creator id="creator1"> </dc:creator>
+        <meta refines="#creator1" property="role" scheme="marc:relators" id="role1">aut</meta>
+        <meta refines="#creator1" property="file-as"> </meta>
+        <meta refines="#creator1" property="alternate-script" xml:lang="tr"> </meta>
+        <meta refines="#creator1" property="display-seq">1</meta>
+        <dc:publisher> TUBITAK-ULAKBIM</dc:publisher>
+        <dc:language>tr</dc:language>
+        <dc:identifier id="pub-id">urn:uuid:8B3EBB46-DA57-11E2-AB84-32F5FD9156E7</dc:identifier>
+        <dc:date>2013-06-21T09:47:11Z</dc:date>
+        <meta property="dcterms:modified">2013-06-21T09:47:11Z</meta>
+        <meta name="cover" content="my-cover-image" />
+    </metadata>
+
+    <manifest>
+	<item id="TOC" href="toc.xhtml" properties="nav" media-type="application/xhtml+xml" /> 
+       	<item id="pg1" href="text/book_0000.xhtml" media-type="application/xhtml+xml" />
+	<item id="pg2" href="book_0002.xhtml" media-type="application/xhtml+xml" />
+	<item id="pg3" href="../book_0003.xhtml" media-type="application/xhtml+xml" />
+    </manifest>
+
+    <spine page-progression-direction="ltr">
+	<itemref idref="pg1" />
+	<itemref idref="pg2" />
+	<itemref idref="pg3" />
+    </spine>
+</package>

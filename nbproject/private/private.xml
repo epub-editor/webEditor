@@ -3,10 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/kemal/NetBeansProjects/z-kitap/web/css/eba-sunum.css</file>
-            <file>file:/Users/kemal/NetBeansProjects/z-kitap/web/js/test.js</file>
+            <file>file:/Users/kemal/NetBeansProjects/z-kitap/src/java/gov/epubapp/MainFrame.java</file>
+            <file>file:/Users/kemal/NetBeansProjects/z-kitap/src/java/gov/Servlets/DBHandler.java</file>
+            <file>file:/Users/kemal/NetBeansProjects/z-kitap/web/js/ebook-menuBarListener.js</file>
+            <file>file:/Users/kemal/NetBeansProjects/z-kitap/src/java/gov/Util/EpubApp.java</file>
+            <file>file:/Users/kemal/NetBeansProjects/z-kitap/src/java/gov/Util/BookOperator.java</file>
+            <file>file:/Users/kemal/NetBeansProjects/z-kitap/src/java/gov/Util/Converter.java</file>
             <file>file:/Users/kemal/NetBeansProjects/z-kitap/web/WORKPLACE/index.jsp</file>
-            <file>file:/Users/kemal/NetBeansProjects/z-kitap/web/css/ebook.css</file>
+            <file>file:/Users/kemal/NetBeansProjects/z-kitap/src/java/gov/Servlets/BookHandler.java</file>
+            <file>file:/Users/kemal/NetBeansProjects/z-kitap/web/js/ebook-server.js</file>
         </group>
     </open-files>
 </project-private>
