@@ -44,7 +44,12 @@ public class BookHandler extends HttpServlet {
             Result resObj = new Result();
             Gson gson = new Gson();           
             
-            BookOperator bookOp = new BookOperator();
+            String operation = request.getParameter("operation");
+            String bookID = request.getParameter("bookId");
+            
+            BookOperator bookOp = new BookOperator(bookID);
+            bookOp.createEpubMode_FTP();
+            
             
             resObj.setRESULT("OK");
             

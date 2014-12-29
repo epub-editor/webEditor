@@ -31,16 +31,12 @@
                 function createEBook(event) {
                     event.preventDefault();                                        
              
+                    bookID = "book_text1";             
+                    $.post("../BookHandler", { "operation":"createBook" , "bookId":bookID }, function(data) {
 
-                    $.ajax({
-                        url:"http://localhost:8080/BookHandler",
-                        type:"POST",
-                        data: jQuery.parseJSON( '{"employees":[{"firstName":"John", "lastName":"Doe"}]}'),
-                        contentType:"application/json; charset=utf-8",
-                        dataType:"json",
-                        success: function(){
-                            alert("Deneme başarılı");
-                        }
-                      })
+                            var jsonObj = jQuery.parseJSON( data );  
+                            console.log(jsonObj);
+                            
+                    });                    
                     
                 }

@@ -28,7 +28,7 @@ import org.apache.commons.io.IOUtils;
  */
 public class OptionPanel extends JPanel implements ActionListener {
 
-    BookOperator bookOp = new BookOperator();
+    BookOperator bookOp = new BookOperator("asd");
     
     private JButton importButton;
     private JButton exportButton;

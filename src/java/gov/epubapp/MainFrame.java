@@ -60,20 +60,39 @@ public class MainFrame  {
     
     public static void main(String[] args) throws IOException {                
         
-//        new MainFrame(); 
+//        new MainFrame();                
         
-        String APP_PATH = "";
-        
-        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder docBuilder;
-                
-                    
-        BookOperator book = new BookOperator();             
-        book.createEpubMode_FTP();                        
-                   
-//        book.converter.createEPUB("finalEpub_7"); 
+        BookOperator book = new BookOperator("book_text1");             
+        book.createEpubMode_FTP();                                           
         
         
+        
+        
+        
+        
+        Process proc;
+        try {
+            
+            
+            
+            proc = Runtime.getRuntime().exec("pwd");
+            InputStream in = proc.getInputStream();   
+            System.out.println("Working path :: " + IOUtils.toString(in));
+            
+            System.out.println(Runtime.getRuntime().exec("cd epubData"));
+            proc = Runtime.getRuntime().exec("pwd");
+            in = proc.getInputStream();   
+            System.out.println("Working path change to :: " + IOUtils.toString(in));
+            
+            proc = Runtime.getRuntime().exec("ls");
+            in = proc.getInputStream();                        
+            System.out.println("Working directory list :: " + IOUtils.toString(in)); 
+            
+            
+            
+        } catch (IOException ex) {
+            Logger.getLogger(BookOperator.class.getName()).log(Level.SEVERE, null, ex);
+        }      
         
 
 //        try {                                                

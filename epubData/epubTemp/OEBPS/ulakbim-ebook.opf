@@ -18,14 +18,11 @@
     </metadata>
 
     <manifest>
-        <item href="images/.DS_Store" id=".DS_Store" media-type="application/xhtml+xml"/>
-        <item href="styles/.DS_Store" id=".DS_Store" media-type="application/xhtml+xml"/>
-        <item href="text/.DS_Store" id=".DS_Store" media-type="application/xhtml+xml"/>
-        <item href="text/book_0000.xhtml" id="book_0000.xhtml" media-type="application/xhtml+xml"/>
-        <item href="toc.xhtml" id="toc.xhtml" media-type="application/xhtml+xml"/>
-        <item href="ulakbim-ebook.opf" id="ulakbim-ebook.opf" media-type="application/xhtml+xml"/>
+        <item href="text/book_0000.xhtml" id="book_0000.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+        <item href="toc.xhtml" id="toc.xhtml" media-type="application/x-dtbncx+xml"/>
     </manifest>
 
-    <spine page-progression-direction="rtl">
+    <spine page-progression-direction="ltr">
+        <itemref idref="book_0000.xhtml"/>
     </spine>
 </package>

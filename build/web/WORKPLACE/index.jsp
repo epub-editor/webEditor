@@ -677,6 +677,7 @@
                         <div class="col-md-12" style="background: #f5e79e;">
                             <button id="menubarSaveButton" class="btn btn-primary" type="button" >Save Project</button>
                             <button id="menubarCreateEpubButton" class="btn btn-primary" type="button" >Create E-Book</button>
+                            <a href="images/a_row_africa5_online.jpg" download> Download it</a>
                         </div>
                     </div>
                     

@@ -18,7 +18,6 @@
     </metadata>
 
     <manifest>
-        <item id="TOC" href="toc.xhtml" properties="nav" media-type="application/xhtml+xml" />
     </manifest>
 
     <spine page-progression-direction="rtl">
