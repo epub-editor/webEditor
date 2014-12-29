@@ -329,19 +329,19 @@ public class Converter {
     
     public class fileNode<T>
     {
-        public T data;
+        public T epubDirectory;
         public File file;
         public fileNode<T> next;
 
         public fileNode(T data, File file ,  fileNode<T> next)
         {
-            this.data = data;
+            this.epubDirectory = data;
             this.file = file;
             this.next = next;
         }
         
         public T getFileDirectory(){
-            return this.data;
+            return this.epubDirectory;
         }
     }
 }

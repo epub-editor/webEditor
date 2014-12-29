@@ -12,6 +12,8 @@ import com.mongodb.MongoClient;
 import gov.Util.BookOperator;
 import gov.Util.Converter;
 import gov.Util.Converter.fileNode;
+import static gov.Util.EpubApp.htmlFileLocation;
+import static gov.Util.EpubApp.writeDocumentToFile;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JFileChooser;
@@ -65,55 +67,11 @@ public class MainFrame  {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder;
                 
-        String epubOpfFile = "/Users/kemal/NetBeansProjects/z-kitap/epubData/epubTemp/OEBPS/ulakbim-ebook.opf";        
-        String epubDirectory = "/Users/kemal/NetBeansProjects/z-kitap/epubData/";
-        String userFileName = "userOne/";
                     
-        BookOperator book = new BookOperator();     
-                //book.createEpubMode_FTP();                        
-        
-        
-        
-        ArrayList<fileNode> fileList = new ArrayList<>();
-        book.converter.getEpubConfFiles(fileList , "/Users/kemal/NetBeansProjects/z-kitap/epubData/epubTemp/OEBPS" , "");     
-        
-        
-        
-        
-                // Burada item tagları oluşturularak document içerisine atılır
-                Document documentForItemTAG = null;
-                String str = "";
-                for(fileNode f:fileList){
-
-                    str = str + "<item href=\"" + f.data + "\" id=\"" + f.file.getName() + "\" media-type=\"application/xhtml+xml\"/>";    
-
-                }
-        
-                System.out.println(str);
-            
-                
-                
-        Document doc = book.epubApp.getDocument(new File(epubOpfFile));       
-        //System.out.println(book.epubApp.documentToString(doc));
-        
-        
-        
-        //System.out.println("Node length is :: " + nodeList.get(0).data);
-        
-        
-                
-        
-        // Find the locatiopn of opf file
-        // 
-        // -6- create || edit .OPF file
-        // -6.1- Get page xhtml file list
-        
-        // -6.2- Create || edit manifest tag
-        // -6.3- Create || edit spine tag
-        // -6.4- Create || edit metadata tag
-        
-        // -6.5- create epub file        
-//                book.converter.createEPUB("finalEpub_7"); 
+        BookOperator book = new BookOperator();             
+        book.createEpubMode_FTP();                        
+                   
+//        book.converter.createEPUB("finalEpub_7"); 
         
         
         

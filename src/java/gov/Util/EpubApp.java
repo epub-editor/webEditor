@@ -314,14 +314,9 @@ public class EpubApp {
      */
     public boolean appendContentToDocument(Document docMain , Document docImport , String element){
         // get list of body tags
-        NodeList bodyElement;
-        if(element.equalsIgnoreCase("body")){
-            bodyElement = docMain.getElementsByTagName("body");
-        }else if(element.equalsIgnoreCase("head")){
-            bodyElement = docMain.getElementsByTagName("head");
-        }else{
-            return false;
-        }                
+        NodeList bodyElement;        
+        bodyElement = docMain.getElementsByTagName(element);
+        
         // size of body element size should be 1
         if(bodyElement.getLength()==1){
             NodeList contentChildren = docImport.getChildNodes();            

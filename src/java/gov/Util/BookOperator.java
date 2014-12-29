@@ -8,6 +8,7 @@ package gov.Util;
 import com.mongodb.BasicDBObject;
 import gov.DBOperations.MongoDBOperations;
 import static gov.Util.Converter.getUSER_EPUB_FILE;
+import static gov.Util.EpubApp.writeDocumentToFile;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,6 +16,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.w3c.dom.*;
 
@@ -27,7 +29,9 @@ public class BookOperator {
     // Necessary files
     public static String epubDefault_xhtml = "/Users/kemal/NetBeansProjects/z-kitap/epubData/epubConf/epubDefault.xhtml";
     public static String epubConfDirectory = "/Users/kemal/NetBeansProjects/z-kitap/epubData/epubConf/epubDefault";
-    public static String epubTempDirectory = "/Users/kemal/NetBeansProjects/z-kitap/epubData/epubTemp";        
+    public static String epubTempDirectory = "/Users/kemal/NetBeansProjects/z-kitap/epubData/epubTemp";  
+    public static String epubOEBPSDirectory = "/Users/kemal/NetBeansProjects/z-kitap/epubData/epubTemp/OEBPS";  
+    public static String epubOPFFile = "/Users/kemal/NetBeansProjects/z-kitap/epubData/epubTemp/OEBPS/ulakbim-ebook.opf";
     public static String bookPage0001_xhtml = "/Users/kemal/NetBeansProjects/z-kitap/epubData/epubTemp/OEBPS/text/book_0000.xhtml";
     
     // Other variables     
@@ -106,7 +110,29 @@ public class BookOperator {
             // -5- create .xhtml file             
             epubApp.writeDocumentToFile(new File(bookPage0001_xhtml) , doc , "xml");
             
-            // -6- create || edit .OPF file
+            // -6- create || edit .OPF file            
+            ArrayList<Converter.fileNode> fileList = new ArrayList<>();
+            converter.getEpubConfFiles(fileList , epubOEBPSDirectory , "");     
+            
+            Document documentForItemTAG = null;
+            Document doc_opf = epubApp.getDocument(new File(epubOPFFile));
+            Document manifest_TAG = epubApp.getDocument("<manifest></manifest>");
+            Document spine_TAG = epubApp.getDocument("<spine page-progression-direction=\"ltr\"></spine>");
+            for(Converter.fileNode f:fileList){
+                
+                // SEPERATE TAGs 
+                documentForItemTAG = epubApp.getDocument("<item href=\"" + f.epubDirectory + "\" id=\"" + f.file.getName() + "\" media-type=\"application/xhtml+xml\"/>");
+                epubApp.appendContentToDocument(manifest_TAG, documentForItemTAG, "manifest");                    
+
+            }
+            
+            // import new created nodes 
+            Node importedManifest = doc_opf.importNode(manifest_TAG.getElementsByTagName("manifest").item(0), true);
+            // replace imported nodes
+            doc_opf.getElementsByTagName("package").item(0).replaceChild( importedManifest , doc_opf.getElementsByTagName("manifest").item(0) );
+            // write result to opf file
+            writeDocumentToFile(new File(epubOPFFile) , doc_opf , "xml");
+            
             // -6.1- Create || edit manifest tag
             // -6.2- Create || edit spine tag
             // -6.3- Create || edit metadata tag
@@ -140,12 +166,12 @@ public class BookOperator {
             
             // -4- add content documents to pages
             Document doc = this.epubApp.getDocument(new File(epubDefault_xhtml));
-            epubApp.appendContentToDocument(doc , docPages.get(0) , "body");
+            this.epubApp.appendContentToDocument(doc , docPages.get(0) , "body");
             
             System.out.println(this.epubApp.documentToString(doc));
             
             // -5- create .xhtml file             
-            epubApp.writeDocumentToFile(new File(bookPage0001_xhtml) , doc , "xml");
+            this.epubApp.writeDocumentToFile(new File(bookPage0001_xhtml) , doc , "xml");                       
             
             /*
             ArrayList<BasicDBObject> containerFile = book.getEpubContainerXML("epubContainer");
